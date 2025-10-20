@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Configuración del Sistema</title>
+  <link rel="stylesheet" href="estilo-configuracion.css" />
+</head>
+<body>
+    <header class="admin-header">
+  <img src="img/logo.png" alt="Logo del Restaurante" class="logo-admin">
+  <h1>Configuración del Sistema</h1>
+</header>
+  <header class="config-header">
+    <h1>Configuración del Sistema</h1>
+    <a href="dashboard-admin.html" class="btn-volver">← Volver</a>
+  </header>
+
+  <main class="config-container">
+    <form id="form-config">
+      <label>Nombre del Restaurante:
+        <input type="text" id="nombreRestaurante" placeholder="Ej: Brisa Caribeña" required />
+      </label>
+
+      <label>Contraseña Administrador:
+        <input type="password" id="nuevaPassword" placeholder="Nueva contraseña..." />
+      </label>
+
+      <label>Subir Logo:
+        <input type="file" id="logoRestaurante" accept="image/*" />
+      </label>
+
+      <button type="submit" class="btn-guardar">Guardar Cambios</button>
+    </form>
+
+    <div class="vista-previa">
+      <h3>Vista previa del logo:</h3>
+      <img id="previewLogo" src="" alt="Logo actual" />
+    </div>
+  </main>
+
+  <script src="script-configuracion.js"></script>
+</body>
+</html>

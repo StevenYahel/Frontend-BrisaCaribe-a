@@ -1,0 +1,157 @@
+/* === General === */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f0f7f4;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+header {
+  background-color: #00a88f;
+  color: #fff;
+  text-align: center;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+header i {
+  margin-right: 0.5rem;
+}
+
+/* === Carrito === */
+.carrito-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.item:hover {
+  transform: translateY(-4px);
+}
+
+.icono-plato {
+  font-size: 2rem;
+  color: #00a88f;
+  margin-right: 1rem;
+}
+
+.info {
+  flex-grow: 1;
+}
+
+.info h2 {
+  margin: 0 0 0.3rem;
+  font-size: 1.2rem;
+  color: #00796b;
+}
+
+.info .precio {
+  color: #00a88f;
+  font-weight: bold;
+}
+
+.info .cantidad {
+  font-weight: 600;
+  color: #444;
+}
+
+.eliminar {
+  background: none;
+  border: none;
+  color: #d32f2f;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.eliminar:hover {
+  color: #9a0007;
+}
+
+/* === Resumen === */
+.resumen {
+  margin: 2rem auto 3rem;
+  text-align: center;
+}
+
+.resumen h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #00796b;
+}
+
+.resumen span {
+  color: #00a88f;
+  font-weight: bold;
+}
+
+.resumen button.confirmar {
+  background-color: #00a88f;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  font-size: 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.resumen button.confirmar:hover {
+  background-color: #00796b;
+}
+
+/* === Footer === */
+footer {
+  background-color: #e0f2f1;
+  text-align: center;
+  padding: 1rem;
+  font-weight: 500;
+}
+
+footer a {
+  text-decoration: none;
+  color: #00a88f;
+  font-size: 1rem;
+}
+
+footer a i {
+  margin-right: 0.5rem;
+}
+
+/* === Responsive === */
+@media (max-width: 600px) {
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .info {
+    width: 100%;
+  }
+
+  .eliminar {
+    align-self: flex-end;
+  }
+}

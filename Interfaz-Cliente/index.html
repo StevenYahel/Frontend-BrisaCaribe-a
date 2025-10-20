@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brisa Caribeña</title>
+  <link rel="stylesheet" href="estilo.css" />
+  <script src="https://kit.fontawesome.com/a2e0f1f4fc.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container-header">
+      <div class="logo">
+        <img src="img/logo.png" alt="Brisa Caribeña" />
+      </div>
+
+      <!-- Botón hamburguesa -->
+      <button class="hamburger" id="abrirMenu">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Menú lateral -->
+      <nav class="nav-lateral" id="menuLateral">
+        <button class="close-btn" id="cerrarMenu">
+          <i class="fas fa-times"></i>
+        </button>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="menu.html">Menú</a></li>
+          <li><a href="login.html">Ingresar</a></li>
+          <li><a href="registro.html">Registrarse</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Overlay para fondo oscuro -->
+  <div class="overlay" id="fondoOscuro"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1>El sabor del Caribe en un clic</h1>
+      <p>Descubre los platos más deliciosos con un solo toque.</p>
+      <a href="menu.html" class="btn">Ver el Menú</a>
+    </div>
+  </section>
+
+  <!-- TARJETAS -->
+  <section class="dashboard">
+    <div class="card" onclick="location.href='menu.html'">
+      <i class="fas fa-utensils"></i>
+      <h3>Ver Menú</h3>
+      <p>Platos disponibles para ordenar</p>
+    </div>
+
+    <div class="card" onclick="location.href='login.html'">
+      <i class="fas fa-sign-in-alt"></i>
+      <h3>Ingresar</h3>
+      <p>Accede a tu cuenta</p>
+    </div>
+
+    <div class="card" onclick="location.href='contacto.html'">
+      <i class="fas fa-envelope"></i>
+      <h3>Contacto</h3>
+      <p>¿Dudas o sugerencias? Escríbenos</p>
+    </div>
+  </section>
+
+  <!-- HISTORIA -->
+  <section class="historia">
+    <div class="historia-contenido">
+      <div class="historia-icono">
+        <i class="fas fa-water"></i>
+      </div>
+      <h2>Nuestra Historia</h2>
+      <p>
+        <strong>Brisa Caribeña</strong> nació del amor por la cocina tradicional del Caribe colombiano. Cada plato es una mezcla de cultura, sabor y tradición.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    &copy; 2025 Brisa Caribeña • Todos los derechos reservados
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

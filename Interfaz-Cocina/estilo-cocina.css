@@ -1,0 +1,107 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0a2e38;
+  color: #fff;
+}
+
+.topbar {
+  background-color: #012e40;
+  padding: 20px;
+}
+
+.topbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  color: #00ffe5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu a {
+  color: #00ffe5;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+.menu a.active {
+  text-decoration: underline;
+}
+
+.dashboard {
+  padding: 30px;
+}
+
+h2 {
+  color: #00ffe5;
+  margin-bottom: 20px;
+}
+
+.pedidos-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.pedido-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid #00ffe57a;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+.pedido-card h3 {
+  margin-top: 0;
+  color: #00ffe5;
+}
+
+.pedido-card p {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.estado {
+  margin-top: 10px;
+}
+
+.estado select {
+  width: 100%;
+  padding: 6px;
+  border-radius: 5px;
+  border: none;
+  background: #fff;
+  color: #012e40;
+  font-weight: bold;
+}
+
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #00ffe5;
+  color: #012e40;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  display: none;
+  box-shadow: 0 0 10px #00ffe5;
+  z-index: 10;
+}
+
+.footer {
+  background: rgba(0, 0, 0, 0.3);
+  text-align: center;
+  padding: 15px;
+  font-size: 0.9rem;
+  margin-top: 40px;
+}

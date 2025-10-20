@@ -1,0 +1,98 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom right, #0a2e38, #138a94);
+  color: white;
+  padding: 1rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #00ffe5;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  color: #00ffe5;
+}
+
+.btn-secundario {
+  background-color: transparent;
+  border: 2px solid #00ffe5;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  color: #00ffe5;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-secundario:hover {
+  background-color: #00ffe5;
+  color: #0a2e38;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.filtros input {
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  width: 200px;
+  background-color: #ffffff22;
+  color: white;
+}
+
+.filtros input::placeholder {
+  color: #dddddd;
+}
+
+.pedido {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid #00ffe5;
+  border-radius: 16px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 10px #00ffe5aa;
+}
+
+.pedido h3 {
+  margin-top: 0;
+  color: #00ffe5;
+  font-size: 1.2rem;
+}
+
+.pedido p {
+  margin: 0.3rem 0;
+}
+
+.pedido ul {
+  padding-left: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.pedido ul li {
+  margin-bottom: 0.2rem;
+}
+
+@media (max-width: 600px) {
+  .filtros {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .filtros input {
+    width: 100%;
+  }
+}

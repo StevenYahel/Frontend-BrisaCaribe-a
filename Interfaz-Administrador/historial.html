@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Historial de Pedidos</title>
+  <link rel="stylesheet" href="estilo-historial.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="admin-header">
+    <h1>Historial de Pedidos</h1>
+    <a href="dashboard-admin.html" class="btn-volver"><i class="fas fa-arrow-left"></i> Volver</a>
+  </header>
+
+  <main class="contenedor-historial">
+    <section class="filtros">
+      <input type="text" id="filtroMesero" placeholder="Filtrar por Mesero" />
+      <input type="number" id="filtroMesa" placeholder="Filtrar por Mesa" />
+      <input type="date" id="filtroFecha" />
+      <button id="limpiarFiltros" class="btn-limpiar"><i class="fas fa-eraser"></i> Limpiar</button>
+    </section>
+
+    <section id="historial-pedidos" class="lista-pedidos"></section>
+  </main>
+
+  <script src="historial-admin.js"></script>
+</body>
+</html>

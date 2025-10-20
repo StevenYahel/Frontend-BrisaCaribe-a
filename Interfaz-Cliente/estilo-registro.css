@@ -1,0 +1,83 @@
+/* === Registro de Usuario === */
+.registro-container {
+  max-width: 450px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.registro-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #00796b;
+  font-size: 1.8rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #00a88f;
+}
+
+.boton-registro {
+  width: 100%;
+  padding: 0.9rem;
+  background-color: #00a88f;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton-registro:hover {
+  background-color: #00796b;
+}
+
+.registro-container p {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.registro-container p a {
+  color: #00a88f;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.registro-container p a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .registro-container {
+    padding: 2rem 1.5rem;
+    margin: 2rem 1rem;
+  }
+}

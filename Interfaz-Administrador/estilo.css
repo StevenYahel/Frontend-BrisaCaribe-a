@@ -1,0 +1,58 @@
+/* Estilo global */
+body {
+  background: #f2f2f2;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+/* Tarjeta de meseros */
+.card-meseros {
+  background: linear-gradient(135deg, #00bcd4, #2196f3); /* Colores vivos */
+  border-radius: 16px;
+  color: #ffffff;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 2rem;
+  width: 300px;
+}
+
+.card-meseros:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.card-meseros h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.card-meseros p {
+  font-size: 2.7rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-meseros {
+    width: 90%;
+    margin: 1rem auto;
+    padding: 1.5rem 1rem;
+  }
+
+  .card-meseros h2 {
+    font-size: 1.2rem;
+  }
+
+  .card-meseros p {
+    font-size: 2.2rem;
+  }
+}

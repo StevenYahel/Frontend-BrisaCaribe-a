@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacto - Brisa Caribeña</title>
+  <link rel="stylesheet" href="estilo-contacto.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="shortcut icon" href="img/logo.png" type="image/png">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <img src="img/logo.png" alt="Logo Brisa Caribeña" class="logo">
+      <nav class="nav">
+        <a href="index.html">Inicio</a>
+        <a href="menu.html">Menú</a>
+        <a href="login.html">Ingresar</a>
+        <a href="registro.html">Registrarse</a>
+        <a href="contacto.html" class="activo">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="contacto">
+    <div class="container">
+      <div class="contacto-header">
+        <i class="fas fa-envelope-circle-check"></i>
+        <h1>Contáctanos</h1>
+        <p>¿Tienes dudas, sugerencias o quieres saludar? ¡Escríbenos!</p>
+      </div>
+
+      <div class="info-contacto">
+        <p><i class="fas fa-phone-alt"></i> WhatsApp: <strong>3145109891</strong></p>
+        <p><i class="fas fa-envelope"></i> Correo: <strong>brisa@caribena.com</strong></p>
+      </div>
+
+      <form action="https://formsubmit.co/tu-correo@ejemplo.com" method="POST" class="formulario-contacto">
+        <input type="text" name="nombre" placeholder="Tu nombre" required />
+        <input type="email" name="email" placeholder="Tu correo" required />
+        <textarea name="mensaje" rows="5" placeholder="Escribe tu mensaje..." required></textarea>
+        <button type="submit"><i class="fas fa-paper-plane"></i> Enviar mensaje</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Brisa Caribeña - Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+</body>
+</html>

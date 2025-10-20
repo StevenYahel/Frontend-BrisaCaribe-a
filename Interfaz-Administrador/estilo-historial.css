@@ -1,0 +1,163 @@
+/* === ADMIN HISTORIAL - RESPONSIVE PRO === */
+
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: #f0f2f5;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.contenedor-historial {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* === Filtros === */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.filtros input,
+.filtros button {
+  flex: 1 1 200px;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid #dfe3e8;
+  border-radius: 14px;
+  font-size: 1rem;
+  background: #f9f9f9;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.filtros input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+.filtros button {
+  background: #e74c3c;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+
+.filtros button:hover {
+  background: #c0392b;
+}
+
+/* === Tarjetas de pedido === */
+.lista-pedidos .pedido {
+  background: #fff;
+  border-left: 6px solid #4a90e2;
+  padding: 1.8rem 2rem;
+  margin-bottom: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s;
+}
+
+.lista-pedidos .pedido:hover {
+  transform: scale(1.01);
+}
+
+.pedido h3 {
+  margin-top: 0;
+  font-size: 1.3rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.pedido p {
+  margin: 0.3rem 0;
+  color: #555;
+}
+
+.pedido ul {
+  margin: 1rem 0 1.2rem;
+  padding-left: 1.5rem;
+  color: #444;
+}
+
+.pedido li {
+  margin-bottom: 0.4rem;
+}
+
+/* Botón imprimir */
+.pedido button {
+  background: #2ecc71;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.1rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pedido button:hover {
+  background: #27ae60;
+}
+
+/* Botón volver */
+.btn-volver {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  background-color: #555;
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.btn-volver:hover {
+  background-color: #333;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .contenedor-historial {
+    padding: 1.5rem 1rem;
+  }
+
+  .filtros {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .filtros input,
+  .filtros button {
+    flex: 1 1 100%;
+    font-size: 1rem;
+  }
+
+  .pedido {
+    padding: 1.3rem 1rem;
+  }
+
+  .pedido h3 {
+    font-size: 1.1rem;
+  }
+
+  .pedido ul {
+    padding-left: 1.2rem;
+  }
+
+  .btn-volver {
+    width: 100%;
+    text-align: center;
+  }
+}

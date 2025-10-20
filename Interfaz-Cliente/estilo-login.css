@@ -1,0 +1,77 @@
+/* === Estilo para Login mejorado === */
+.login-container {
+  width: 90%;
+  max-width: 420px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #00796b;
+  font-size: 1.8rem;
+}
+
+.login-container .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.login-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.login-container input:focus {
+  outline: none;
+  border-color: #00a88f;
+}
+
+.boton-login {
+  width: 100%;
+  padding: 0.9rem;
+  background-color: #00a88f;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.boton-login:hover {
+  background-color: #00796b;
+}
+
+.login-container p {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.login-container p a {
+  color: #00a88f;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-container p a:hover {
+  text-decoration: underline;
+}

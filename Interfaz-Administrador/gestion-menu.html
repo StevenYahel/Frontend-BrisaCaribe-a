@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestión de Menú</title>
+  <link rel="stylesheet" href="estilo-menu.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="admin-header">
+    <h1>Gestión de Menú</h1>
+    <a href="dashboard-admin.html" class="btn-volver"><i class="fas fa-arrow-left"></i> Volver</a>
+  </header>
+
+  <main class="menu-container">
+    <form id="formAgregarPlato" enctype="multipart/form-data">
+      <input type="text" id="nombrePlato" placeholder="Nombre del plato" required />
+      <input type="number" id="precioPlato" placeholder="Precio" required min="0" />
+      <textarea id="descripcionPlato" placeholder="Descripción del plato" rows="3"></textarea>
+
+      <label for="imagenPlato" class="label-imagen">
+        <i class="fas fa-camera"></i> Subir imagen del plato
+      </label>
+      <input type="file" id="imagenPlato" accept="image/*" hidden />
+
+      <div id="previewImagen" class="preview-imagen"></div>
+
+      <button type="submit"><i class="fas fa-plus"></i> Agregar Plato</button>
+    </form>
+
+    <section id="listaPlatos" class="lista-platos">
+      <!-- Aquí se mostrarán los platos agregados -->
+    </section>
+  </main>
+
+  <script src="script-menu.js"></script>
+</body>
+</html>

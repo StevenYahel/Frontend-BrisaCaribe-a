@@ -1,0 +1,119 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 1rem;
+  background: #f2f2f2;
+}
+
+.config-header {
+  background-color: #1e88e5;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+}
+
+.btn-volver {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  color: white;
+  text-decoration: none;
+}
+
+.config-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+form label {
+  display: block;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="file"] {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.btn-guardar {
+  display: block;
+  width: 100%;
+  background-color: #1e88e5;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.vista-previa {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.vista-previa img {
+  max-width: 200px;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+.btn-volver {
+  display: inline-block;
+  background-color: #1565c0;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.btn-volver:hover {
+  background-color: #0d47a1;
+  transform: translateY(-2px);
+}
+.logo-admin {
+  height: 50px;
+  margin-right: 15px;
+  vertical-align: middle;
+}
+.admin-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background-color: #1565c0;
+  color: white;
+  gap: 1rem;
+}
+.configuracion-logo {
+  margin: 2rem 0;
+}
+
+.vista-previa-logo {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  max-width: 300px;
+}
+
+.vista-previa-logo img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}

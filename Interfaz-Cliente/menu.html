@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menú - Brisa Caribeña</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #0a2e38, #138a94);
+      color: #fff;
+    }
+    .menu-header { 
+      display: flex; justify-content: space-between; align-items: center; 
+      padding: 15px 30px; background: rgba(0,0,0,0.3); text-shadow: 0 0 8px #00ffe5; color: #00ffe5;
+    }
+    .carrito-icono { font-size: 1.5rem; color: #00ffe5; position: relative; text-decoration: none; cursor: pointer; }
+    #contador-carrito {
+      background: red; color: #fff; font-size: 0.7rem; padding: 2px 6px; border-radius: 50%;
+      position: absolute; top: -8px; right: -10px;
+    }
+    .menu-container {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; padding: 30px;
+    }
+    .card {
+      background: rgba(255,255,255,0.08); border-radius: 16px; padding: 20px;
+      text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.6); }
+    .card img { width: 100%; border-radius: 12px; margin-bottom: 15px; }
+    .card h2 { color: #fff; font-size: 1.3rem; margin-bottom: 8px; }
+    .card .precio { color: #00ffe5; margin-bottom: 10px; }
+    .card p { color: #d0f0f0; margin-bottom: 15px; }
+    .card button {
+      background: #00ffe5; color: #012e40; border: none; padding: 10px 18px; border-radius: 10px;
+      font-weight: bold; font-size: 0.95rem; cursor: pointer; transition: background 0.3s ease;
+    }
+    .card button:hover { background: #00d6cb; }
+    #carrito-container {
+      margin: 30px; padding: 20px; background: rgba(0,0,0,0.25); border-radius: 12px;
+    }
+    #carrito-container h3 { margin-top: 0; }
+    #carrito-container ul { list-style: none; padding: 0; }
+    #carrito-container li { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2); }
+    #carrito-container button {
+      margin-top: 10px; padding: 10px; border-radius: 8px; border: none;
+      background: #00ffe5; color: #012e40; cursor: pointer; width: 100%; font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<header class="menu-header">
+  <h1><i class="fas fa-utensils"></i> Menú de Platos</h1>
+  <div>
+    <a href="dashboard-cliente.html" class="carrito-icono" title="Ir al Panel">
+      <i class="fas fa-home"></i>
+    </a>
+    <a href="carrito.html" class="carrito-icono" title="Ver carrito">
+      <i class="fas fa-shopping-cart"></i>
+      <span id="contador-carrito">0</span>
+    </a>
+  </div>
+</header>
+
+<main class="menu-container" id="menu">
+  <!-- Aquí se generarán dinámicamente los productos desde la API -->
+</main>
+
+<div id="carrito-container">
+  <h3>Carrito</h3>
+  <ul id="lista-carrito"></ul>
+  <button id="enviar-pedido">Enviar pedido</button>
+</div>
+
+<script src="script-menu.js"></script>
+</body>
+</html>

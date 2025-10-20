@@ -1,0 +1,529 @@
+/* === RESET === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom, #0a2e38, #138a94);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 2s ease-in-out;
+}
+
+/* === ANIMACIONES === */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes logoBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes slideInFromLeft {
+  from { opacity: 0; transform: translateX(-100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* === HEADER Y NAVEGACIÓN === */
+.header {
+  background-color: #001c26;
+  padding: 15px 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+.logo img {
+  height: 140px; 
+  animation: logoBounce 2s ease-in-out infinite;
+}
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 10px 0;
+}
+
+
+/* Botón hamburguesa */
+.menu-toggle {
+  background: none;
+  border: none;
+  color: #00ffe5;
+  font-size: 1.8rem;
+  display: none; /* Ocultar por defecto */
+  cursor: pointer;
+  z-index: 11;
+}
+
+/* Navegación lateral (móvil) */
+.nav-lateral {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 260px;
+  height: 100vh;
+  background-color: #001e25;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  transition: right 0.3s ease;
+  z-index: 100;
+}
+
+.nav-lateral.show {
+  right: 0;
+}
+
+.nav-lateral .close-btn {
+  background: none;
+  border: none;
+  color: #00ffe5;
+  font-size: 1.5rem;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.nav-lateral ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nav-lateral a {
+  color: #fff;
+  font-size: 1.2rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-lateral a:hover {
+  color: #00ffe5;
+}
+
+/* Fondo oscuro al abrir menú */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100vh;
+  display: none;
+  z-index: 50;
+}
+
+.overlay.show {
+  display: block;
+}
+
+/* === MENÚ DESKTOP === */
+@media (min-width: 768px) {
+  .menu-toggle {
+    display: none; /* Ocultar en pantallas grandes */
+  }
+
+  .nav-lateral {
+    position: static;
+    height: auto;
+    width: auto;
+    background: none;
+    flex-direction: row;
+    padding: 0;
+    gap: 30px;
+  }
+
+  .nav-lateral ul {
+    flex-direction: row;
+    margin: 0;
+    gap: 30px;
+  }
+
+  .nav-lateral .close-btn,
+  .overlay {
+    display: none !important;
+  }
+
+  .nav-lateral a {
+    color: #00ffe5;
+    font-size: 1rem;
+  }
+
+  .nav-lateral a:hover {
+    text-decoration: underline;
+  }
+}
+
+@media (max-width: 767px) {
+  .menu-toggle {
+    display: block; /* Mostrar en dispositivos móviles */
+  }
+}
+
+
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+  background: url('img/hero-background.jpg') no-repeat center center/cover;
+  position: relative;
+  z-index: 1;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 0;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  color: #00ffe5;
+  text-shadow: 2px 2px 10px rgba(0, 255, 229, 0.8);
+  animation: slideInFromLeft 1s ease-in-out;
+  position: relative;
+  z-index: 1;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  color: #e0f7fa;
+  text-shadow: 1px 1px 5px rgba(224, 247, 250, 0.8);
+  animation: fadeInUp 1.5s ease-in-out;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+.btn {
+  background: #00ffe5;
+  color: #012e40;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+  transition: background 0.3s, transform 0.3s;
+  position: relative;
+  z-index: 1;
+}
+
+.btn:hover {
+  background: #00d6cb;
+  transform: scale(1.1);
+}
+
+
+.historia {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.historia-contenido {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.historia-icono {
+  font-size: 3rem;
+  color: #00ffe5;
+  margin-bottom: 20px;
+}
+
+.historia h2 {
+  color: #00ffe5;
+  margin-bottom: 20px;
+}
+
+.historia p {
+  font-size: 1.1rem;
+  color: #cdeeff;
+}
+
+/* === FOOTER === */
+.footer {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 15px 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #b2ebf2;
+}
+/* Responsive menú hamburguesa */
+.hamburger {
+  background: none;
+  border: none;
+  color: #00ffe5;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: none;
+  z-index: 101;
+}
+
+.nav-lateral {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 260px;
+  height: 100vh;
+  background-color: #001e25;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  transition: right 0.3s ease;
+  z-index: 100;
+}
+
+.nav-lateral.show {
+  right: 0;
+}
+
+.nav-lateral .close-btn {
+  background: none;
+  border: none;
+  color: #00ffe5;
+  font-size: 1.5rem;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.nav-lateral ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nav-lateral a {
+  color: #fff;
+  font-size: 1.2rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-lateral a:hover {
+  color: #00ffe5;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100vh;
+  display: none;
+  z-index: 50;
+}
+
+.overlay.show {
+  display: block;
+}
+
+/* Mostrar en móvil */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-lateral {
+    display: flex;
+  }
+}
+
+/* Ocultar menú lateral en escritorio */
+@media (min-width: 769px) {
+  .nav-lateral,
+  .hamburger,
+  .close-btn,
+  .overlay {
+    display: none !important;
+  }
+
+  .container-header ul {
+    display: flex;
+    gap: 20px;
+  }
+
+  .container-header ul a {
+    color: #00ffe5;
+    font-weight: 500;
+    text-decoration: none;
+  }
+}
+/* TARJETAS */
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 20px;
+}
+
+.card {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+  color: #fff;
+  width: 260px;
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card i {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #00ffe5;
+}
+
+.card h3 {
+  font-size: 1.4rem;
+  color: #00ffe5;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #e0f7fa;
+}
+
+/* RESPONSIVE BOTÓN HAMBURGUESA */
+.hamburger {
+  background: none;
+  border: none;
+  color: #00ffe5;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: none;
+  z-index: 101;
+}
+
+.nav-lateral {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 260px;
+  height: 100vh;
+  background-color: #001e25;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  transition: right 0.3s ease;
+  z-index: 100;
+}
+
+.nav-lateral.show {
+  right: 0;
+}
+
+.nav-lateral .close-btn {
+  background: none;
+  border: none;
+  color: #00ffe5;
+  font-size: 1.5rem;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.nav-lateral ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nav-lateral a {
+  color: #fff;
+  font-size: 1.2rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-lateral a:hover {
+  color: #00ffe5;
+}
+
+/* FONDO OSCURO */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100vh;
+  display: none;
+  z-index: 50;
+}
+
+.overlay.show {
+  display: block;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-lateral {
+    display: flex;
+  }
+}
+
+@media (min-width: 769px) {
+  .hamburger,
+  .nav-lateral,
+  .close-btn,
+  .overlay {
+    display: none !important;
+  }
+}

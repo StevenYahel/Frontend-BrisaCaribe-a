@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Meseros</title>
+  <link rel="stylesheet" href="estilo-gestion.css">
+</head>
+<body>
+  <main class="contenedor-meseros">
+    <h1>Gestión de Meseros</h1>
+
+    <form id="form-mesero">
+      <input type="text" id="nombre" placeholder="Nombre completo" required>
+      <input type="email" id="correo" placeholder="Correo electrónico" required>
+      <input type="tel" id="telefono" placeholder="Teléfono" required>
+      <select id="estado">
+        <option value="activo">Activo</option>
+        <option value="inactivo">Inactivo</option>
+      </select>
+      <button type="submit">Agregar Mesero</button>
+    </form>
+
+    <section id="lista-meseros" class="lista-meseros"></section>
+
+    <a href="dashboard-admin.html" class="btn-volver">← Volver</a>
+  </main>
+
+  <script src="script-gestion.js"></script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel del Mesero</title>
+  <link rel="stylesheet" href="estilo.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <header>
+    <h1>Bienvenido, Mesero</h1>
+    <a href="historial.html" class="btn-secundario">
+      <i class="fas fa-list"></i> Ver Pedidos Realizados
+    </a>
+  </header>
+
+  <main>
+    <section class="menu" id="menuPlatos">
+      <!-- Los productos se cargarán dinámicamente desde la API -->
+    </section>
+
+    <!-- Carrito de pedidos -->
+    <section id="carritoPedido" class="carrito oculto">
+      <h2>Pedido Actual</h2>
+      <ul id="listaPedidos"></ul>
+
+      <input type="text" id="nombreMesero" placeholder="Nombre del Mesero" required />
+      <input type="number" id="numeroMesa" placeholder="Número de Mesa" required />
+      <textarea id="comentario" placeholder="Comentario (opcional)"></textarea>
+
+      <div class="acciones">
+        <button id="enviarPedido"><i class="fas fa-paper-plane"></i> Enviar Pedido</button>
+        <button id="cancelarPedido"><i class="fas fa-times"></i> Cancelar</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const menuPlatos = document.getElementById("menuPlatos");
+
+      // 📸 Diccionario de imágenes fijas según el nombre
+      const imagenes = {
+        "Arroz con Coco": "img/arroz-coco.jpg",
+        "Cazuela de Mariscos": "img/cazuela.jpg",
+        "Mojarra Frita": "img/mojarra.jpg",
+        "Ceviche Costeño": "img/ceviche.jpg",
+        "Arroz con Camarón": "img/arroz-camaron.jpg",
+        "Sopa Costeña": "img/sopa-costeña.jpg"
+      };
+
+      // 🔹 Cargar los productos desde el backend
+      try {
+        const response = await fetch("http://127.0.0.1:8000/api/productos/");
+        if (!response.ok) throw new Error("Error al cargar productos");
+        const productos = await response.json();
+
+        productos.forEach(prod => {
+          const div = document.createElement("div");
+          div.classList.add("plato");
+          div.innerHTML = `
+            <img src="${imagenes[prod.nombre] || "img/default.jpg"}" alt="${prod.nombre}" />
+            <h3>${prod.nombre}</h3>
+            <p class="precio">$${parseInt(prod.precio).toLocaleString()}</p>
+            <button class="agregar" data-nombre="${prod.nombre}" data-precio="${prod.precio}">
+              <i class="fas fa-plus"></i> Agregar
+            </button>
+          `;
+          menuPlatos.appendChild(div);
+        });
+      } catch (error) {
+        console.error("Error cargando productos:", error);
+      }
+
+      // 🧾 --- Carrito de pedido ---
+      const carritoPedido = document.getElementById("carritoPedido");
+      const listaPedidos = document.getElementById("listaPedidos");
+      const enviarPedidoBtn = document.getElementById("enviarPedido");
+      const cancelarPedidoBtn = document.getElementById("cancelarPedido");
+      let pedidoActual = [];
+
+      function mostrarCarrito() {
+        carritoPedido.classList.remove("oculto");
+        listaPedidos.innerHTML = "";
+
+        if (pedidoActual.length === 0) {
+          listaPedidos.innerHTML = "<li>No hay platos agregados.</li>";
+          return;
+        }
+
+        pedidoActual.forEach((p, i) => {
+          const li = document.createElement("li");
+          li.textContent = `${p.nombre} - $${parseInt(p.precio).toLocaleString()}`;
+          const btnEliminar = document.createElement("button");
+          btnEliminar.innerHTML = '<i class="fas fa-trash"></i>';
+          btnEliminar.addEventListener("click", () => {
+            pedidoActual.splice(i, 1);
+            mostrarCarrito();
+          });
+          li.appendChild(btnEliminar);
+          listaPedidos.appendChild(li);
+        });
+      }
+
+      // ➕ Agregar platos al pedido
+      menuPlatos.addEventListener("click", e => {
+        if (e.target.closest(".agregar")) {
+          const btn = e.target.closest(".agregar");
+          const nombre = btn.dataset.nombre;
+          const precio = btn.dataset.precio;
+          pedidoActual.push({ nombre, precio });
+          mostrarCarrito();
+        }
+      });
+
+      // ❌ Cancelar pedido
+      cancelarPedidoBtn.addEventListener("click", () => {
+        pedidoActual = [];
+        mostrarCarrito();
+        carritoPedido.classList.add("oculto");
+      });
+
+      // 📤 Enviar pedido al backend
+      enviarPedidoBtn.addEventListener("click", async () => {
+        const nombreMesero = document.getElementById("nombreMesero").value.trim();
+        const numeroMesa = document.getElementById("numeroMesa").value.trim();
+        const comentario = document.getElementById("comentario").value.trim();
+
+        if (!nombreMesero || !numeroMesa || pedidoActual.length === 0) {
+          alert("Por favor, completa todos los campos y agrega al menos un plato.");
+          return;
+        }
+
+        const data = {
+          mesero: nombreMesero,
+          mesa: numeroMesa,
+          comentario: comentario,
+          platos: pedidoActual.map(p => ({
+            nombre: p.nombre,
+            precio: parseInt(p.precio)
+          })),
+          fecha: new Date().toISOString()
+        };
+
+        try {
+          const response = await fetch("http://127.0.0.1:8000/api/pedidos/registrar/", {   <!-- ✅ ruta corregida -->
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+          });
+
+          if (response.ok) {
+            alert("✅ Pedido enviado correctamente");
+            pedidoActual = [];
+            mostrarCarrito();
+            carritoPedido.classList.add("oculto");
+          } else {
+            const err = await response.json();
+            console.error("Error del servidor:", err);
+            alert("❌ Error al enviar el pedido: " + (err.error || "ver consola"));
+          }
+        } catch (error) {
+          console.error("Error enviando pedido:", error);
+          alert("⚠️ No se pudo conectar con el servidor.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

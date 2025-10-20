@@ -1,0 +1,197 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+}
+
+/* Header */
+.admin-header {
+  background-color: #007b8a;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.admin-header .btn-cerrar-sesion {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background-color: #004d5f;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.admin-header .btn-cerrar-sesion:hover {
+  background-color: #006773;
+}
+
+/* Contenedor principal */
+.dashboard-container {
+  padding: 20px;
+}
+
+/* Tarjetas resumen */
+.tarjetas-resumen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-evenly;
+  margin-bottom: 40px;
+}
+
+.tarjeta {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  width: 280px;
+  text-align: center;
+}
+
+.tarjeta i {
+  font-size: 36px;
+  color: #007b8a;
+  margin-bottom: 10px;
+}
+
+.tarjeta h2 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.tarjeta p {
+  font-size: 22px;
+  font-weight: bold;
+  color: #222;
+}
+
+/* Botones de acceso rápido */
+.accesos-rapidos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.btn-admin {
+  background-color: #007b8a;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 15px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-admin:hover {
+  background-color: #005f6e;
+}
+
+@media (max-width: 600px) {
+  .tarjeta {
+    width: 100%;
+  }
+
+  .admin-header .btn-cerrar-sesion {
+    position: static;
+    display: inline-block;
+    margin-top: 10px;
+  }
+}
+.gestion-menu-container {
+  padding: 2rem;
+}
+
+.formulario-agregar {
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.formulario-agregar input,
+.formulario-agregar textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.formulario-agregar button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.lista-menu {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.grid-platos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.plato-card {
+  background-color: #f0f4ff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+  position: relative;
+}
+
+.plato-card h3 {
+  margin: 0;
+}
+
+.plato-card p {
+  margin: 0.5rem 0;
+}
+
+.plato-card .acciones {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.plato-card button {
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-editar {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.btn-eliminar {
+  background-color: #dc3545;
+  color: #fff;
+}

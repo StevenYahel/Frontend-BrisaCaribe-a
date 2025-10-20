@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crear Cuenta - Brisa Caribeña</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="estilo-registro.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #0a2e38, #0e5660, #138a94);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    .register-container {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 20px;
+      padding: 40px 30px;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+      text-align: center;
+    }
+
+    .register-container h2 {
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+      color: #00ffe5;
+      text-shadow: 0 0 8px #00ffe5;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 14px 14px 44px;
+      border-radius: 12px;
+      border: none;
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .input-group input::placeholder {
+      color: #e0f7fa;
+    }
+
+    .input-group i {
+      position: absolute;
+      top: 50%;
+      left: 14px;
+      transform: translateY(-50%);
+      color: #00ffe5;
+      font-size: 1.1rem;
+    }
+
+    .register-btn {
+      width: 100%;
+      background: #00ffe5;
+      color: #012e40;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .register-btn:hover {
+      background: #00d6cb;
+    }
+
+    .bottom-link {
+      margin-top: 20px;
+      font-size: 0.95rem;
+    }
+
+    .bottom-link a {
+      color: #00ffe5;
+      text-decoration: none;
+    }
+
+    .bottom-link a:hover {
+      text-decoration: underline;
+    }
+
+    .logo {
+      font-size: 3rem;
+      color: #00ffe5;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="register-container">
+    <div class="logo"><i class="fas fa-fish"></i></div>
+    <h2>Crea tu cuenta</h2>
+
+    <form id="formRegistro">
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="text" id="nombre" placeholder="Nombre completo" required />
+      </div>
+      <div class="input-group">
+        <i class="fas fa-envelope"></i>
+        <input type="email" id="correo" placeholder="Correo electrónico" required />
+      </div>
+      <div class="input-group">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="clave" placeholder="Contraseña" required />
+      </div>
+      <div class="input-group">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="confirmar" placeholder="Confirmar contraseña" required />
+      </div>
+
+      <button type="submit" class="register-btn">
+        <i class="fas fa-user-plus"></i> Registrarse
+      </button>
+    </form>
+
+    <div class="bottom-link">
+      ¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a>
+    </div>
+  </div>
+
+  <script src="script-registro.js"></script>
+</body>
+</html>

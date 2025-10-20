@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestión de Pagos - Brisa Caribeña</title>
+  <link rel="stylesheet" href="pago.css" />
+</head>
+<body>
+  <h1>Registrar Pago</h1>
+
+  <div class="form-container">
+    <label for="pedido">Seleccionar Pedido:</label>
+    <select id="pedido"></select>
+
+    <label for="metodo">Método de pago:</label>
+    <select id="metodo">
+      <option value="Efectivo">Efectivo</option>
+      <option value="Tarjeta">Tarjeta</option>
+      <option value="Transferencia">Transferencia</option>
+    </select>
+
+    <label for="monto">Monto:</label>
+    <input type="number" id="monto" placeholder="Valor del pago" />
+
+    <button id="registrar">Registrar Pago</button>
+  </div>
+
+  <div id="mensaje"></div>
+
+  <script src="pago.js"></script>
+</body>
+</html>

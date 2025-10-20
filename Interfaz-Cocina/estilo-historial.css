@@ -1,0 +1,93 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0a2e38;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-color: #012e40;
+  padding: 20px;
+  text-align: center;
+  color: #00ffe5;
+  text-shadow: 0 0 5px #00ffe5;
+}
+
+.main-container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+}
+
+.volver {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.volver button {
+  background-color: #00ffe5;
+  color: #012e40;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.3s;
+}
+
+.volver button:hover {
+  background-color: #00d6cb;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ffffff30;
+}
+
+th {
+  background-color: #012e40;
+  color: #00ffe5;
+}
+
+tr:hover {
+  background-color: #013f4f;
+}
+
+button.ver-detalles {
+  background-color: #00ffe5;
+  color: #012e40;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+button.ver-detalles:hover {
+  background-color: #00d6cb;
+}
+
+.footer {
+  background-color: #001f29;
+  color: #b2ebf2;
+  text-align: center;
+  padding: 15px;
+  margin-top: 40px;
+  font-size: 0.9rem;
+}

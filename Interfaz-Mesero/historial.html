@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Historial de Pedidos</title>
+  <link rel="stylesheet" href="estilo-historial.css" />
+  <script defer src="script-historial.js"></script>
+</head>
+<body>
+
+  <header class="menu-header">
+    <h1>Historial de Pedidos</h1>
+  </header>
+
+  <section class="filtros">
+    <input type="text" id="filtroMesero" placeholder="Filtrar por mesero..." />
+    <input type="text" id="filtroMesa" placeholder="Filtrar por número de mesa..." />
+    <input type="date" id="filtroFecha" />
+    <button id="limpiarFiltros">Limpiar Filtros</button>
+  </section>
+
+  <main class="historial-container" id="historial-pedidos">
+    <!-- Se insertan dinámicamente los pedidos -->
+  </main>
+
+  <footer>
+    <p>© 2025 Restaurante Brisa Caribeña</p>
+  </footer>
+
+</body>
+</html>

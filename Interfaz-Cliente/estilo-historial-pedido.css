@@ -1,0 +1,56 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #0a2e38, #138a94);
+  color: #fff;
+  margin: 0;
+  padding: 40px;
+}
+
+.historial-container {
+  max-width: 800px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 30px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.pedido-card {
+  border: 1px solid #00ffe5;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.info h3 {
+  margin-top: 0;
+  color: #00ffe5;
+}
+
+.btn-repetir, .btn-volver, .btn-eliminar {
+  background: #00ffe5;
+  color: #012e40;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-repetir:hover, .btn-volver:hover, .btn-eliminar:hover {
+  background: #00d6cb;
+}
+
+.btn-volver {
+  display: block;
+  margin: 30px auto 0;
+}
+
+.sin-pedidos {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 30px;
+  color: #e0f7fa;
+}

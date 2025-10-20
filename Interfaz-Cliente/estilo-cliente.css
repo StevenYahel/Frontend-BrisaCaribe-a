@@ -1,0 +1,218 @@
+/* === RESET === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom, #0a2e38, #138a94);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 2s ease-in-out;
+}
+
+/* === ANIMACIONES === */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes logoBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* === HEADER Y NAVEGACIÓN === */
+.topbar {
+  background-color: #001c26;
+  padding: 15px 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.topbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  animation: logoBounce 2s infinite;
+}
+
+.logo i {
+  font-size: 30px;
+  margin-right: 8px;
+}
+
+/* Menú principal solo visible en escritorio */
+.menu {
+  display: flex;
+  gap: 20px;
+}
+
+.menu a {
+  color: #00ffe5;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.menu a:hover {
+  color: #00d6cb;
+}
+
+/* Botón hamburguesa solo visible en móvil */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #00ffe5;
+  cursor: pointer;
+  z-index: 11;
+}
+
+/* === NAV LATERAL PARA MÓVIL === */
+.nav-lateral {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 260px;
+  height: 100vh;
+  background-color: #001e25;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  transition: right 0.3s ease;
+  z-index: 100;
+}
+
+.nav-lateral.show {
+  right: 0;
+}
+
+.nav-lateral .close-btn {
+  background: none;
+  border: none;
+  color: #00ffe5;
+  font-size: 1.5rem;
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.nav-lateral ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nav-lateral a {
+  color: #fff;
+  font-size: 1.2rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-lateral a:hover {
+  color: #00ffe5;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100vh;
+  display: none;
+  z-index: 50;
+}
+
+.overlay.show {
+  display: block;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
+
+@media (min-width: 769px) {
+  .nav-lateral,
+  .overlay {
+    display: none !important;
+  }
+}
+
+/* === DASHBOARD === */
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  width: 260px;
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.card i {
+  font-size: 48px;
+  margin-bottom: 10px;
+  color: #00ffe5;
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  color: #00ffe5;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #e0f7fa;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card.cerrar {
+  background: rgba(255, 0, 0, 0.2);
+}
+
+.card.cerrar i,
+.card.cerrar h3,
+.card.cerrar p {
+  color: #ff4d4d;
+}
+
+/* === FOOTER === */
+.footer {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 15px 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #b2ebf2;
+}

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Estado del Pedido - Brisa Caribeña</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="estilo.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #0a2e38, #0e5660, #138a94);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #ffffff;
+    }
+
+    .estado-container {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 20px;
+      padding: 35px 30px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    h2 {
+      color: #00ffe5;
+      text-shadow: 0 0 8px #00ffe5;
+      margin-bottom: 10px;
+    }
+
+    .pedido-info {
+      margin-bottom: 25px;
+      font-size: 1.1rem;
+      color: #e0f7fa;
+    }
+
+    .progreso {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      overflow: hidden;
+      height: 25px;
+      width: 100%;
+      margin: 25px auto;
+    }
+
+    .barra {
+      background: #00ffe5;
+      height: 100%;
+      width: 60%; /* Cambia este valor según el estado */
+      animation: avanzar 2s ease-in-out;
+    }
+
+    @keyframes avanzar {
+      from { width: 0%; }
+      to { width: 60%; }
+    }
+
+    .estado-texto {
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+
+    .icono-estado {
+      font-size: 3rem;
+      color: #00ffe5;
+      margin-top: 20px;
+      animation: flotar 3s ease-in-out infinite;
+    }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .btn-volver {
+      background: #00ffe5;
+      color: #012e40;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      margin-top: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn-volver:hover {
+      background: #00d6cb;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="estado-container">
+    <h2>Estado del Pedido</h2>
+    <div class="pedido-info">
+      <p><strong>#Pedido:</strong> 1023</p>
+      <p><strong>Fecha:</strong> 15 de julio de 2025</p>
+    </div>
+
+    <div class="progreso">
+      <div class="barra"></div>
+    </div>
+
+    <div class="estado-texto">Preparando tu pedido 🍤</div>
+    <div class="icono-estado"><i class="fas fa-motorcycle"></i></div>
+
+    <button class="btn-volver" onclick="window.location.href='dashboard-cliente.html'">
+      <i class="fas fa-arrow-left"></i> Volver al panel
+    </button>
+  </div>
+  
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const historial = JSON.parse(localStorage.getItem("historialPedidos")) || [];
+
+    const contenedor = document.querySelector(".estado-container");
+
+    if (historial.length === 0) {
+      contenedor.innerHTML = `
+        <h2>Estado del Pedido</h2>
+        <p>No tienes pedidos en proceso.</p>
+        <button class="btn-volver" onclick="window.location.href='dashboard-cliente.html'">
+          <i class="fas fa-arrow-left"></i> Volver al panel
+        </button>
+      `;
+      return;
+    }
+
+    const ultimo = historial[historial.length - 1];
+    const numero = 1000 + historial.length;
+    const fecha = ultimo.fecha;
+    const pedido = ultimo.pedido;
+
+    // Rellenar la info
+    document.querySelector(".pedido-info").innerHTML = `
+      <p><strong>#Pedido:</strong> ${numero}</p>
+      <p><strong>Fecha:</strong> ${fecha}</p>
+    `;
+
+    const lista = document.getElementById("lista-platos");
+    let total = 0;
+    lista.innerHTML = `
+      <h3>Resumen del Pedido:</h3>
+    `;
+
+    pedido.forEach(plato => {
+      const subtotal = plato.precio * plato.cantidad;
+      total += subtotal;
+
+      const itemHTML = `
+        <div style="margin-bottom: 10px; font-size: 1rem;">
+          <strong>${plato.nombre}</strong> x ${plato.cantidad} — $${subtotal.toLocaleString()}
+        </div>
+      `;
+      lista.innerHTML += itemHTML;
+    });
+
+    lista.innerHTML += `
+      <div style="margin-top: 15px; font-size: 1.1rem; font-weight: bold;">
+        Total: $${total.toLocaleString()}
+      </div>
+    `;
+
+    // Estado visual (barra de progreso)
+    const barra = document.querySelector(".barra");
+    const estadoTexto = document.querySelector(".estado-texto");
+    const icono = document.querySelector(".icono-estado");
+
+    barra.style.width = "60%";
+    estadoTexto.textContent = "Preparando tu pedido 🍤";
+
+    setTimeout(() => {
+      barra.style.width = "100%";
+      estadoTexto.textContent = "¡Tu pedido está en camino! 🚚";
+      icono.innerHTML = `<i class="fas fa-truck"></i>`;
+    }, 7000);
+  });
+</script>
+<script src="script-estado-pedido.js"></script>
+
+
+</body>
+</html>

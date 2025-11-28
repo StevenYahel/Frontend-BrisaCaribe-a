@@ -1,4 +1,4 @@
-/* Fondo degradado y estilo general */
+/* ==== ESTILO GENERAL ==== */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -6,11 +6,12 @@ body {
   color: white;
 }
 
+/* ==== HEADER ==== */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   background-color: rgba(0, 255, 229, 0.1);
   border-bottom: 1px solid #00ffe5;
 }
@@ -20,7 +21,29 @@ header h1 {
   font-size: 1.8rem;
 }
 
-.btn-secundario {
+/* ==== BOTONES ==== */
+.btn-principal,
+#btnRegistrarPedido {
+  background-color: #00ffe5;
+  color: #0a2e38;
+  padding: 0.8rem;
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+.btn-principal:hover,
+#btnRegistrarPedido:hover {
+  background-color: #00d2bb;
+}
+
+.btn-secundario,
+#btnAgregarProducto {
   background-color: #00ffe5;
   color: #0a2e38;
   padding: 0.6rem 1rem;
@@ -29,180 +52,138 @@ header h1 {
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s;
+  text-decoration: none;
+  margin-top: 0.5rem;
 }
 
-.btn-secundario:hover {
+.btn-secundario:hover,
+#btnAgregarProducto:hover {
   background-color: #00d2bb;
 }
 
-/* Menú de platos */
-.menu {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.2rem;
-  padding: 2rem;
-}
-
-.plato {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 1rem;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transition: transform 0.3s;
-}
-
-.plato:hover {
-  transform: translateY(-5px);
-}
-
-.plato img {
-  width: 100%;
-  max-height: 160px;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-.plato h3 {
-  margin-top: 0.7rem;
-  margin-bottom: 0.4rem;
-  font-size: 1.2rem;
-}
-
-.precio {
-  font-size: 1rem;
-  margin: 0.2rem 0 0.8rem;
-  color: #00ffe5;
-  font-weight: bold;
-}
-
-.agregar {
-  background-color: #00ffe5;
-  color: #0a2e38;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.agregar:hover {
-  background-color: #00d2bb;
-}
-
-/* Campo de pedido (carrito) */
-.carrito {
+/* ==== CONTENEDORES (paneles) ==== */
+.panel {
   background-color: rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
-  margin: 1rem 2rem 3rem;
-  padding: 2rem;
-  box-shadow: 0 0 15px rgba(0,0,0,0.3);
-  color: white;
+  margin: 2rem;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.25);
 }
 
-.carrito h2 {
-  margin-top: 0;
-}
-
-#listaPedidos {
-  list-style: none;
-  padding-left: 0;
+/* ==== SELECTS E INPUTS ==== */
+select, input[type="number"] {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 10px;
+  border: none;
   margin-bottom: 1rem;
+  font-size: 1rem;
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+  outline: none;
 }
 
-#listaPedidos li {
-  margin-bottom: 8px;
+select option {
+  background-color: #0a2e38;
+}
+
+/* ==== LISTA DE PRODUCTOS AGREGADOS ==== */
+.lista-productos {
+  background-color: rgba(255,255,255,0.05);
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  list-style: none;
+}
+
+.producto-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding-bottom: 5px;
+  padding: 7px 5px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
-#listaPedidos .nombre {
-  flex-grow: 1;
+.producto-item span {
+  font-size: 1rem;
 }
 
-#listaPedidos .precio {
-  color: #00ffe5;
-  margin-left: 1rem;
-}
-
-.eliminar {
-  background-color: transparent;
+.producto-item .eliminar {
+  background: transparent;
+  border: none;
   color: #ff4f4f;
-  border: none;
   cursor: pointer;
-  font-size: 1.1rem;
-  margin-left: 0.5rem;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 0.6rem;
-  margin-bottom: 1rem;
-  border-radius: 10px;
-  border: none;
-  font-size: 1rem;
-}
-
-.total {
   font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+}
+
+/* ==== PEDIDOS PARA COCINA ==== */
+.pedidos-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-top: 1.5rem;
+}
+
+.pedido-card {
+  background-color: rgba(255,255,255,0.1);
+  padding: 1rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+}
+
+.pedido-card:hover {
+  transform: translateY(-5px);
+}
+
+.pedido-card h3 {
+  margin: 0 0 0.5rem;
+}
+
+.pedido-card p strong {
   color: #00ffe5;
 }
 
-.acciones {
-  display: flex;
-  gap: 1rem;
-  justify-content: space-between;
-}
-
-#enviarPedido, #cancelarPedido {
-  flex: 1;
-  padding: 0.7rem;
-  border-radius: 12px;
-  border: none;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-#enviarPedido {
-  background-color: #00ffe5;
-  color: #0a2e38;
-}
-
-#cancelarPedido {
-  background-color: #ff4f4f;
-  color: white;
-}
-
-#carritoPedido.oculto {
-  display: none;
-}
-
-/* Responsive */
-@media screen and (max-width: 600px) {
-  .menu {
-    grid-template-columns: 1fr;
-  }
-
-  .acciones {
-    flex-direction: column;
-  }
-}
-a.btn-secundario {
+/* ==== SPINNER ==== */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid white;
+  border-top: 3px solid #0a2e38;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
   display: inline-block;
-  padding: 10px 15px;
-  background-color: #00ffe5;
-  color: #0a2e38;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
 }
-a.btn-secundario:hover {
-  background-color: #00d6c3;
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==== RESPONSIVE ==== */
+@media (max-width: 600px) {
+  .panel {
+    margin: 1rem;
+    padding: 1.2rem;
+  }
+}
+.alerta-retraso {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #ff4d4d;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    animation: fadeInOut 5s ease;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    z-index: 9999;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-20px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-20px); }
 }

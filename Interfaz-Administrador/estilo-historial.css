@@ -161,3 +161,26 @@ body {
     text-align: center;
   }
 }
+.acciones {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+}
+
+.acciones button {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.editar {
+  background-color: #2196F3;
+  color: white;
+}
+
+.eliminar {
+  background-color: #E53935;
+  color: white;
+}

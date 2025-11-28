@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gestión de Menú</title>
   <link rel="stylesheet" href="estilo-menu.css" />
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
   <header class="admin-header">
     <h1>Gestión de Menú</h1>
@@ -19,6 +22,11 @@
       <input type="number" id="precioPlato" placeholder="Precio" required min="0" />
       <textarea id="descripcionPlato" placeholder="Descripción del plato" rows="3"></textarea>
 
+    
+      <select id="categoriaPlato" required>
+        <option value="">Seleccionar categoría</option>
+      </select>
+
       <label for="imagenPlato" class="label-imagen">
         <i class="fas fa-camera"></i> Subir imagen del plato
       </label>
@@ -30,7 +38,7 @@
     </form>
 
     <section id="listaPlatos" class="lista-platos">
-      <!-- Aquí se mostrarán los platos agregados -->
+      
     </section>
   </main>
 

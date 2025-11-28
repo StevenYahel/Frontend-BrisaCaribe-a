@@ -1,32 +1,62 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("formLogin");
 
-  form.addEventListener("submit", (e) => {
+  if (!form) {
+    console.error("No se encontró el formulario de login.");
+    return;
+  }
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const correo = document.getElementById("correo").value.trim();
-    const clave = document.getElementById("clave").value.trim();
-
-    if (!correo || !clave) {
-      alert("Por favor, completa todos los campos.");
+    const mesaInput = document.getElementById("mesa_id");
+    if (!mesaInput) {
+      alert("No se encontró el campo de número de mesa.");
       return;
     }
 
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-    const usuario = usuarios.find((u) => u.correo === correo && u.clave === clave);
-
-    if (!usuario) {
-      alert("Usuario o contraseña incorrectos.");
+    const mesaId = mesaInput.value.trim();
+    if (!mesaId) {
+      alert("Por favor, ingresa el número de mesa.");
       return;
     }
 
-    // Guardar sesión
-    localStorage.setItem("usuarioLogueado", JSON.stringify(usuario));
+    try {
+      const res = await fetch("http://127.0.0.1:8000/api/login_cliente/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mesa_id: mesaId }),
+        credentials: "include"
+      });
 
-    alert("Inicio de sesión exitoso. Redirigiendo...");
-    setTimeout(() => {
-      window.location.href = "dashboard-cliente.html";
-    }, 500);
+      const text = await res.text();
+      let data;
+
+      try {
+        data = JSON.parse(text);
+      } catch {
+        console.error("Respuesta no es JSON:", text);
+        alert("Error: el servidor respondió con algo inesperado.");
+        return;
+      }
+
+      if (res.ok && data.success) {
+
+
+        localStorage.setItem("mesa_id", mesaId);
+        localStorage.setItem("mesa_numero", data.mesa_numero); 
+        
+
+        alert(`Mesa ${data.mesa_numero} iniciada. Redirigiendo al dashboard...`);
+        window.location.href = "dashboard-cliente.html";
+
+      } else {
+        alert(data.message || "Error al iniciar sesión.");
+      }
+
+    } catch (error) {
+      console.error("Error de conexión con el servidor:", error);
+      alert("No se pudo conectar con el servidor.");
+    }
   });
 });

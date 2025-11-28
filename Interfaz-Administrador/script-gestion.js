@@ -1,71 +1,59 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const nombreInput = document.getElementById("nombreRestaurante");
-  const passwordInput = document.getElementById("nuevaPassword");
-  const logoInput = document.getElementById("logoRestaurante");
-  const previewLogo = document.getElementById("previewLogo");
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('form-mesero');
+  const listaMeseros = document.getElementById('lista-meseros');
 
-  // Cargar configuración previa si existe (localStorage)
-  const config = JSON.parse(localStorage.getItem("configuracion")) || {};
+  async function cargarMeseros() {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/meseros/');
+      const meseros = await response.json();
 
-  if (config.nombre) nombreInput.value = config.nombre;
-  if (config.logo) previewLogo.src = config.logo;
+      listaMeseros.innerHTML = '';
+      meseros.forEach(m => {
+        const li = document.createElement('li');
+        li.textContent = `${m.nombre} ${m.apellido} - ${m.documento_identidad}`;
+        listaMeseros.appendChild(li);
+      });
+    } catch (error) {
+      console.error('Error al cargar meseros:', error);
+    }
+  }
 
-  document.getElementById("form-config").addEventListener("submit", (e) => {
+  cargarMeseros();
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const nuevaConfig = {
-      nombre: nombreInput.value,
-      password: passwordInput.value || config.password,
-      logo: config.logo // se actualizará si se carga nueva imagen
-    };
+    const nombre = document.getElementById('nombre')?.value.trim();
+    const apellido = document.getElementById('apellido')?.value.trim();
+    const documento_identidad = document.getElementById('documento_identidad')?.value.trim();
+    const telefono = document.getElementById('telefono')?.value.trim();
+    const correo = document.getElementById('correo')?.value.trim();
+    const direccion = document.getElementById('direccion')?.value.trim();
+    const fecha_ingreso = document.getElementById('fecha_ingreso')?.value.trim();
 
-    if (logoInput.files[0]) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        nuevaConfig.logo = reader.result;
-        guardar(nuevaConfig);
-      };
-      reader.readAsDataURL(logoInput.files[0]);
-    } else {
-      guardar(nuevaConfig);
+    if (!nombre || !apellido || !documento_identidad) {
+      alert('Los campos Nombre, Apellido y Documento son obligatorios');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/meseros/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, apellido, documento_identidad })
+      });
+
+      const data = await response.json();
+      console.log('📤 Respuesta del servidor:', data);
+
+      if (!response.ok) throw new Error(`Error del servidor: ${JSON.stringify(data)}`);
+
+      alert('Mesero agregado correctamente');
+      form.reset();
+      cargarMeseros();
+    } catch (error) {
+      console.error('⚠️ Error al agregar mesero:', error);
+      alert('Error al agregar mesero. Revisa la consola.');
     }
   });
-
-  function guardar(configData) {
-    // Guardar localmente
-    localStorage.setItem("configuracion", JSON.stringify(configData));
-    alert("Configuración guardada con éxito.");
-    if (configData.logo) previewLogo.src = configData.logo;
-
-    // 🔗 Enviar al backend Django
-    fetch("http://127.0.0.1:8000/api/configuracion/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(configData),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Error en la conexión con el servidor");
-        return res.json();
-      })
-      .then((data) => {
-        console.log("✅ Configuración guardada en el servidor:", data);
-      })
-      .catch((err) => {
-        console.error("❌ Error enviando configuración:", err);
-      });
-  }
-});
-
-// Vista previa del logo cargado
-document.getElementById("input-logo").addEventListener("change", function(event) {
-  const file = event.target.files[0];
-  if (file && file.type.startsWith("image/")) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      document.getElementById("logo-preview").src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
 });

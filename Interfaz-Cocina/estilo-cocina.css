@@ -1,107 +1,203 @@
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #0a2e38;
-  color: #fff;
+/* =======================
+   Reset básico
+======================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+body {
+    background: #0d1b2a; /* azul oscuro de fondo */
+    color: #fff;
+}
+
+/* =======================
+   Topbar
+======================= */
 .topbar {
-  background-color: #012e40;
-  padding: 20px;
+    background: #1b263b; /* azul un poco más claro que el body */
+    color: #fff;
+    padding: 12px 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .topbar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.logo {
-  font-size: 1.5rem;
-  color: #00ffe5;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.logo i {
+    margin-right: 8px;
+    font-size: 1.2rem;
+    color: #ffd60a;
+}
+
+.logo span {
+    font-weight: 700;
+    font-size: 1.1rem;
 }
 
 .menu a {
-  color: #00ffe5;
-  text-decoration: none;
-  margin-left: 20px;
-  font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    margin-left: 16px;
+    font-weight: 500;
+    transition: color 0.2s ease;
 }
 
+.menu a:hover,
 .menu a.active {
-  text-decoration: underline;
+    color: #ffd60a;
 }
 
+/* =======================
+   Dashboard principal
+======================= */
 .dashboard {
-  padding: 30px;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 16px;
 }
 
-h2 {
-  color: #00ffe5;
-  margin-bottom: 20px;
+.dashboard h2 {
+    margin-bottom: 16px;
+    color: #ffd60a;
 }
 
-.pedidos-list {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
+/* =======================
+   Tarjeta de Pedido
+======================= */
 .pedido-card {
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid #00ffe57a;
-  padding: 20px;
-  border-radius: 10px;
-  width: 300px;
+    background: #1b263b; /* tarjeta azul oscuro ligeramente diferente */
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pedido-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.7);
 }
 
 .pedido-card h3 {
-  margin-top: 0;
-  color: #00ffe5;
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+    color: #ffd60a;
 }
 
-.pedido-card p {
-  font-size: 0.95rem;
-  margin-bottom: 8px;
+.pedido-card p,
+.pedido-card ul li {
+    margin: 4px 0;
+    font-size: 0.95rem;
+    color: #e0e0e0;
 }
 
-.estado {
-  margin-top: 10px;
+.pedido-card ul {
+    margin: 6px 0;
+    padding-left: 18px;
 }
 
+/* =======================
+   Estado select
+======================= */
 .estado select {
-  width: 100%;
-  padding: 6px;
-  border-radius: 5px;
-  border: none;
-  background: #fff;
-  color: #012e40;
-  font-weight: bold;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background: #0d1b2a;
+    color: #fff;
 }
 
+/* =======================
+   Botón “Marcar Retraso”
+======================= */
+.delay-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ff3b30; /* rojo vibrante */
+    color: #fff;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 59, 48, 0.4);
+    animation: pulse 1.8s infinite;
+}
+
+/* Hover */
+.delay-btn:hover {
+    transform: scale(1.05);
+    background: #ff1f16;
+    box-shadow: 0 6px 16px rgba(255, 59, 48, 0.6);
+}
+
+/* Click */
+.delay-btn:active {
+    transform: scale(0.97);
+}
+
+/* Animación pulsante */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(255, 59, 48, 0.4);
+    }
+    50% {
+        transform: scale(1.07);
+        box-shadow: 0 6px 16px rgba(255, 59, 48, 0.7);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(255, 59, 48, 0.4);
+    }
+}
+
+/* =======================
+   Notificación visual
+======================= */
 .notification {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #00ffe5;
-  color: #012e40;
-  padding: 12px 20px;
-  border-radius: 10px;
-  font-weight: bold;
-  display: none;
-  box-shadow: 0 0 10px #00ffe5;
-  z-index: 10;
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: #ffd60a;
+    color: #1b263b;
+    padding: 12px 18px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    font-weight: 600;
+    z-index: 2000;
 }
 
+.notification.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* =======================
+   Footer
+======================= */
 .footer {
-  background: rgba(0, 0, 0, 0.3);
-  text-align: center;
-  padding: 15px;
-  font-size: 0.9rem;
-  margin-top: 40px;
+    text-align: center;
+    padding: 12px 0;
+    background: #1b263b;
+    color: #fff;
+    margin-top: 20px;
 }

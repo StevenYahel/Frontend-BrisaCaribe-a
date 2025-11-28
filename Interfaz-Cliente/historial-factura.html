@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Historial de Facturas - Brisa Caribeña</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f7fa;
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    background: #0e5660;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  }
+
+  .container {
+    width: 95%;
+    max-width: 1100px;
+    margin: 25px auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .titulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    color: #0e5660;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .buscador {
+    margin-bottom: 15px;
+  }
+
+  .buscador input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    outline: none;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+
+  table thead {
+    background: #0e5660;
+    color: #fff;
+  }
+
+  th, td {
+    padding: 14px 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  tr:hover {
+    background: #f2f8fa;
+  }
+
+  .empty-message {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+  }
+
+  .btn-factura {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 8px;
+    background: #0e5660;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.3s;
+  }
+
+  .btn-factura:hover {
+    background: #0c454f;
+  }
+
+  @media (max-width: 700px) {
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+
+    thead {
+      display: none;
+    }
+
+    tr {
+      margin-bottom: 15px;
+      background: #f9f9f9;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    td {
+      border: none;
+      padding: 10px 5px;
+    }
+
+    td::before {
+      content: attr(data-label);
+      font-weight: bold;
+      display: block;
+      margin-bottom: 6px;
+      color: #0e5660;
+    }
+  }
+</style>
+
+</head>
+<body>
+
+<header>
+  <i class="fas fa-receipt"></i> Historial de Facturas
+</header>
+
+<div class="container">
+  <div class="titulo">
+    <i class="fas fa-file-invoice"></i> Facturas de tu Mesa
+  </div>
+
+  <div class="buscador">
+    <input type="text" id="buscar" placeholder="Buscar por método de pago o monto...">
+  </div>
+
+  <table id="tablaFacturas">
+    <thead>
+      <tr>
+        <th>ID Factura</th>
+        <th>ID Pedido</th>
+        <th>Monto Pagado</th>
+        <th>Método</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <p id="sinDatos" class="empty-message" style="display:none;">
+    No hay facturas asociadas a tu mesa.
+  </p>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  cargarFacturasCliente();
+
+  document.getElementById("buscar").addEventListener("input", filtrarTabla);
+});
+
+// --- CARGAR FACTURAS ---
+async function cargarFacturasCliente() {
+  const mesaId = localStorage.getItem("mesa_id");
+
+  if (!mesaId) {
+    alert("No se encontró la sesión. Inicia sesión nuevamente.");
+    window.location.href = "index.html";
+    return;
+  }
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/historial-facturas/");
+    const data = await response.json();
+
+    if (!Array.isArray(data)) {
+      console.error("Formato inesperado:", data);
+      return;
+    }
+
+    const facturasMesa = data.filter(f => String(f.mesa) === String(mesaId));
+
+    renderTabla(facturasMesa);
+
+  } catch (error) {
+    console.error("Error cargando facturas:", error);
+    alert("No se pudieron cargar las facturas.");
+  }
+}
+
+// --- MOSTRAR TABLA ---
+function renderTabla(facturas) {
+  const tbody = document.querySelector("#tablaFacturas tbody");
+  const sinDatos = document.getElementById("sinDatos");
+  tbody.innerHTML = "";
+
+  if (facturas.length === 0) {
+    sinDatos.style.display = "block";
+    return;
+  }
+
+  sinDatos.style.display = "none";
+
+  facturas.forEach(f => {
+    const fecha = new Date(f.fecha_pago).toLocaleString("es-CO");
+
+    const fila = document.createElement("tr");
+
+    fila.innerHTML = `
+      <td data-label="ID Factura">${f.factura_id}</td>
+      <td data-label="ID Pedido">${f.pedido_id}</td>
+      <td data-label="Monto Pagado">$${f.monto_pagado.toLocaleString()}</td>
+      <td data-label="Método">${f.metodo_pago}</td>
+      <td data-label="Fecha">${fecha}</td>
+      <td data-label="Acciones">
+        <button class="btn-factura" onclick="descargarFactura('${f.factura_id}')">
+          <i class="fas fa-file-invoice"></i> Descargar
+        </button>
+      </td>
+    `;
+
+    tbody.appendChild(fila);
+  });
+}
+
+// --- FILTRAR ---
+function filtrarTabla() {
+  const texto = this.value.toLowerCase();
+  const filas = document.querySelectorAll("#tablaFacturas tbody tr");
+
+  filas.forEach(fila => {
+    const contenido = fila.textContent.toLowerCase();
+    fila.style.display = contenido.includes(texto) ? "" : "none";
+  });
+}
+
+// --- DESCARGAR FACTURA ---
+async function descargarFactura(facturaId) {
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/api/factura/${facturaId}/`);
+    if (!response.ok) throw new Error("Error al descargar la factura");
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `Factura_${facturaId}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+
+  } catch (error) {
+    console.error(error);
+    alert("No se pudo descargar la factura.");
+  }
+}
+</script>
+
+</body>
+</html>

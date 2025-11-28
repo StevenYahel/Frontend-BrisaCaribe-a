@@ -6,47 +6,87 @@
   <title>Dashboard Administrador</title>
   <link rel="stylesheet" href="estilo-admin.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
 </head>
+
 <body>
   <header class="admin-header">
     <h1>Panel de Administración</h1>
-    <a href="login-admin.html" class="btn-cerrar-sesion"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+    <a href="login-admin.html" class="btn-cerrar-sesion">
+      <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+    </a>
   </header>
 
   <main class="dashboard-container">
+
+    <!-- Tarjetas de resumen -->
     <section class="tarjetas-resumen">
       <div class="tarjeta">
         <i class="fas fa-utensils"></i>
         <h2>Total Pedidos</h2>
         <p id="total-pedidos">0</p>
       </div>
+
       <div class="tarjeta">
         <i class="fas fa-user-friends"></i>
         <h2>Meseros Activos</h2>
         <p id="meseros-activos">0</p>
       </div>
+
       <div class="tarjeta">
         <i class="fas fa-chart-line"></i>
         <h2>Ventas Totales</h2>
         <p id="ventas-totales">$0</p>
       </div>
-      <div class="card-meseros">
-  <h2>Meseros Registrados</h2>
-  <p id="total-meseros">0</p>
-</div>
-
     </section>
 
+    <!-- Botones de accesos rápidos -->
     <section class="accesos-rapidos">
-      <a href="gestion-menu.html" class="btn-admin"><i class="fas fa-concierge-bell"></i> Gestión de Menú</a>
-      <a href="historial.html" class="btn-admin"><i class="fas fa-history"></i> Historial de Pedidos</a>
-      <a href="gestion-meseros.html" class="btn-admin"><i class="fas fa-users-cog"></i> Gestión de Meseros</a>
-      <a href="configuracion.html" class="btn-admin"><i class="fas fa-cogs"></i> Configuración</a>
-      <a href="respaldo.html" class="btn-admin"><i class="fas fa-database"></i> Respaldo de Datos</a>
+
+      <a href="gestion-menu.html" class="btn-admin">
+        <i class="fas fa-concierge-bell"></i> Gestión de Menú
+      </a>
+
+      <a href="historial.html" class="btn-admin">
+        <i class="fas fa-history"></i> Historial de Pedidos
+      </a>
+
+      <!-- NUEVO botón integrado -->
+      <a href="historial-facturacion.html" class="btn-admin">
+        <i class="fas fa-file-invoice-dollar"></i> Historial de Facturación
+      </a>
+
+      <a href="gestion-meseros.html" class="btn-admin">
+        <i class="fas fa-users-cog"></i> Gestión de Meseros
+      </a>
+
+      <a href="configuracion.html" class="btn-admin">
+        <i class="fas fa-cogs"></i> Configuración
+      </a>
+
+      <a href="respaldo.html" class="btn-admin">
+        <i class="fas fa-database"></i> Respaldo de Datos
+      </a>
     </section>
+
   </main>
 
+  <!-- Gráficos -->
+  <section class="graficos-dashboard">
+    <h3>📊 Ventas y Pedidos</h3>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <canvas id="graficoVentas" width="400" height="200"></canvas>
+      <canvas id="graficoPedidos" width="400" height="200"></canvas>
+    </div>
+  </section>
+
+  <section class="graficos-dashboard">
+    <h3>📊 Tiempos de Preparación de Pedidos</h3>
+    <canvas id="graficoTiempos" width="800" height="300"></canvas>
+  </section>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script-admin.js"></script>
+
 </body>
 </html>

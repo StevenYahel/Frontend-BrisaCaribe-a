@@ -1,99 +1,110 @@
-// Cambia esto según tu host y puerto de Django
-const API_BASE = 'http://127.0.0.1:8000/api';
+const API_BASE = "http://127.0.0.1:8000/api";
 
-// Función para obtener productos desde la API
+// ============================
+// Cargar los productos del backend
+// ============================
 async function cargarProductos() {
   try {
     const res = await fetch(`${API_BASE}/productos/`);
-    if (!res.ok) throw new Error('Error al obtener productos');
+    if (!res.ok) throw new Error("Error al obtener productos");
     const productos = await res.json();
 
-    const menu = document.querySelector('.menu-container');
-    menu.innerHTML = ''; // Limpiar productos antiguos
+    // Contenedor donde se renderiza el menú
+    const menu = document.querySelector(".menu-container");
+    menu.innerHTML = "";
 
-    productos.forEach(producto => {
-      const card = document.createElement('div');
-      card.classList.add('card');
+    productos.forEach((producto) => {
+      const card = document.createElement("div");
+      card.classList.add("card");
+
       card.innerHTML = `
         <img src="${producto.imagen}" alt="${producto.nombre}">
         <h2>${producto.nombre}</h2>
         <p class="precio">$${producto.precio}</p>
         <p>${producto.descripcion}</p>
-        <button class="btn-agregar" data-id="${producto.id}">
+        <button class="btn-agregar"
+          data-id="${producto.id}"
+          data-nombre="${producto.nombre}"
+          data-precio="${producto.precio}"
+          data-icono="fas fa-utensils">
           <i class="fas fa-cart-plus"></i> Añadir
         </button>
       `;
+
       menu.appendChild(card);
     });
 
-    // Agregar eventos a los botones
-    document.querySelectorAll('.btn-agregar').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const productoId = btn.dataset.id;
-        try {
-          const res = await fetch(`${API_BASE}/carrito/`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-CSRFToken': getCookie('csrftoken') // Django CSRF
-            },
-            body: JSON.stringify({ producto_id: productoId, cantidad: 1 })
-          });
-          if (!res.ok) throw new Error('No se pudo agregar al carrito');
-          alert('Producto agregado al carrito ✅');
-          actualizarContador();
-        } catch (err) {
-          console.error(err);
-          alert('Error al agregar producto al carrito');
-        }
+    
+    document.querySelectorAll(".btn-agregar").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        agregarAlCarrito(btn);
       });
     });
-
   } catch (error) {
-    console.error('Error cargando productos:', error);
+    console.error("Error cargando productos:", error);
   }
 }
 
-// Función para actualizar contador de carrito
-async function actualizarContador() {
-  try {
-    const res = await fetch(`${API_BASE}/carrito/`);
-    if (!res.ok) throw new Error('Error al obtener carrito');
-    const carrito = await res.json();
+// ============================
+// Agregar productos al carrito
+// ============================
+function agregarAlCarrito(btn) {
+  const id = btn.dataset.id;
+  const nombre = btn.dataset.nombre;
+  const precio = parseFloat(btn.dataset.precio);
+  const icono = btn.dataset.icono;
 
-    document.getElementById('contador-carrito').textContent = carrito.length;
+  // Leer carrito actual del localStorage
+  let carrito = JSON.parse(localStorage.getItem("carrito"));
 
-    const lista = document.getElementById('lista-carrito');
-    lista.innerHTML = '';
-    carrito.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = `${item.cantidad} x ${item.producto.nombre}`;
-      lista.appendChild(li);
+
+  if (!Array.isArray(carrito)) {
+    carrito = [];
+  }
+
+  // Buscar si ya existe el producto
+  const existente = carrito.find((item) => item.id === id);
+
+  if (existente) {
+    existente.cantidad += 1;
+  } else {
+    carrito.push({
+      id,
+      nombre,
+      precio,
+      cantidad: 1,
+      icono,
     });
-
-  } catch (error) {
-    console.error('Error actualizando carrito:', error);
   }
+
+  // Guardar en localStorage
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+
+  // Actualizar contador
+  actualizarContador();
+
+  
+  alert(`🍽️ ${nombre} agregado al carrito`);
 }
 
-// Función para obtener CSRF token de Django
-function getCookie(name) {
-  let cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-    const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
-      cookie = cookie.trim();
-      if (cookie.startsWith(name + '=')) {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
-      }
+
+function actualizarContador() {
+  const carrito = JSON.parse(localStorage.getItem("carrito"));
+  const contador = document.getElementById("contador-carrito");
+
+  if (contador) {
+    if (Array.isArray(carrito)) {
+      
+      const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+      contador.textContent = totalItems;
+    } else {
+      contador.textContent = 0;
     }
   }
-  return cookieValue;
 }
 
-// Inicializar
-document.addEventListener('DOMContentLoaded', () => {
+
+document.addEventListener("DOMContentLoaded", () => {
   cargarProductos();
   actualizarContador();
 });

@@ -1,32 +1,36 @@
-document.getElementById("loginForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("loginForm");
 
-  const usuario = document.getElementById("usuario").value.trim();
-  const contrasena = document.getElementById("contrasena").value.trim();
-  const error = document.getElementById("error");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  fetch("http://127.0.0.1:8000/api/login/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ username: usuario, password: contrasena })
-  })
-    .then(res => {
-      if (!res.ok) throw new Error("Credenciales inválidas");
-      return res.json();
-    })
-    .then(data => {
-      if (data.success) {
-        // Guardamos en localStorage que el admin está logueado
+    const username = document.getElementById("usuario").value;
+    const password = document.getElementById("contrasena").value;
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/login-admin/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        //  Guardar sesión local
         localStorage.setItem("adminLogueado", "true");
-        window.location.href = "dashboard-admin.html"; // Redirige al panel
+        localStorage.setItem("usuarioAdmin", username);
+
+        // Redirigir al dashboard
+        window.location.href = "dashboard-admin.html";
       } else {
-        error.textContent = data.message || "Usuario o contraseña incorrectos.";
+        document.getElementById("error").textContent =
+          data.error || "Credenciales incorrectas.";
       }
-    })
-    .catch(err => {
-      console.error(err);
-      error.textContent = "Error al intentar iniciar sesión.";
-    });
+    } catch (error) {
+      console.error("Error:", error);
+      document.getElementById("error").textContent =
+        "Error de conexión con el servidor.";
+    }
+  });
 });

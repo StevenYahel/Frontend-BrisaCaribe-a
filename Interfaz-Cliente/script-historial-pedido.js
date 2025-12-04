@@ -1,64 +1,125 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
-  if (!usuario) {
-    window.location.href = "login.html";
-    return;
-  }
+document.addEventListener('DOMContentLoaded', () => {
+    const contenedor = document.getElementById('contenedorHistorial');
+    const filtroFecha = document.getElementById('filtroFecha');
+    const filtroPlato = document.getElementById('filtroPlato');
+    const btnLimpiar = document.getElementById('limpiarFiltros');
+    const sinDatos = document.getElementById('sinDatos');
+    const spinner = document.getElementById('spinner');
 
-  const historial = JSON.parse(localStorage.getItem("historialPedidos")) || [];
-  const contenedor = document.getElementById("contenedorHistorial");
+    // ===============================
+    // CARGAR HISTORIAL DE PEDIDOS
+    // ===============================
+    async function cargarHistorial() {
+        if (spinner) spinner.style.display = 'block';
+        if (contenedor) contenedor.innerHTML = '';
+        if (sinDatos) sinDatos.style.display = 'none';
 
-  if (historial.length === 0) {
-    contenedor.innerHTML = `<p class="sin-pedidos">No tienes pedidos anteriores.</p>`;
-    return;
-  }
+        try {
+            // 🛑 LÍNEA CORREGIDA: Cambiado 'pedidos_cliente' por 'pedidos/cliente/' para coincidir con Django.
+            const response = await fetch('http://127.0.0.1:8000/api/pedidos/cliente/', {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include' // <- MUY IMPORTANTE para usar la sesión
+            });
 
-  historial.reverse();
+            if (!response.ok) {
+                if (response.status === 401) {
+                    if (sinDatos) {
+                        sinDatos.style.display = 'block';
+                        sinDatos.textContent = 'No hay sesión activa. Por favor inicia sesión.';
+                    }
+                    return;
+                }
+                throw new Error('Error al obtener los pedidos');
+            }
 
-  historial.forEach((pedido, index) => {
-    const total = pedido.pedido.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+            const pedidos = await response.json();
 
-    const card = document.createElement("div");
-    card.classList.add("pedido-card");
+            if (spinner) spinner.style.display = 'none';
 
-    card.innerHTML = `
-      <div class="info">
-        <h3>Pedido #${1020 + index}</h3>
-        <p><strong>Fecha:</strong> ${pedido.fecha}</p>
-        <p><strong>Total:</strong> $${total.toLocaleString()}</p>
-        <p><strong>Estado:</strong> Entregado</p>
-      </div>
-      <div class="acciones">
-        <button class="btn-repetir" data-index="${index}">
-          <i class="fas fa-redo-alt"></i> Repetir
-        </button>
-        <button class="btn-eliminar" data-index="${index}">
-          <i class="fas fa-trash-alt"></i> Eliminar
-        </button>
-      </div>
-    `;
+            if (!pedidos.length) {
+                if (sinDatos) sinDatos.style.display = 'block';
+                return;
+            }
 
-    contenedor.appendChild(card);
-  });
+            // Ordenar por fecha descendente
+            pedidos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
 
-  // Repetir pedido
-  contenedor.addEventListener("click", (e) => {
-    if (e.target.closest(".btn-repetir")) {
-      const index = e.target.closest(".btn-repetir").dataset.index;
-      const pedidoSeleccionado = historial[historial.length - 1 - index];
-      localStorage.setItem("carrito", JSON.stringify(pedidoSeleccionado.pedido));
-      alert("Pedido añadido nuevamente al carrito.");
-      window.location.href = "carrito.html";
+            // Aplicar filtros
+            const fechaFiltro = filtroFecha.value;
+            const platoFiltro = filtroPlato.value.toLowerCase();
+
+            const pedidosFiltrados = pedidos.filter(pedido => {
+                const fechaMatch = fechaFiltro ? pedido.fecha.startsWith(fechaFiltro) : true;
+                const platoMatch = platoFiltro
+                    ? pedido.detalles.some(d => d.producto_nombre.toLowerCase().includes(platoFiltro))
+                    : true;
+                return fechaMatch && platoMatch;
+            });
+
+            if (!pedidosFiltrados.length) {
+                if (sinDatos) sinDatos.style.display = 'block';
+                return;
+            }
+
+            // Mostrar pedidos en cards
+            pedidosFiltrados.forEach(pedido => {
+                const card = document.createElement('div');
+                card.className = 'pedido-card';
+
+                const header = document.createElement('div');
+                header.className = 'pedido-header';
+                header.innerHTML = `
+                    <div>Mesa: ${pedido.mesa} | Total: $${pedido.total}</div>
+                    <div class="estado ${pedido.estado}">${pedido.estado}</div>
+                `;
+                
+                // 🛑 CÓDIGO DE FECHA ELIMINADO
+
+                const detalles = document.createElement('div');
+                detalles.className = 'detalles';
+                let detallesHTML = '<ul>';
+                pedido.detalles.forEach(d => {
+                    detallesHTML += `<li>${d.producto_nombre} x${d.cantidad} - $${d.subtotal}</li>`;
+                });
+                detallesHTML += '</ul>';
+                detalles.innerHTML = detallesHTML;
+                detalles.style.display = 'none'; // oculto por defecto
+
+                header.addEventListener('click', () => {
+                    detalles.style.display = detalles.style.display === 'block' ? 'none' : 'block';
+                });
+
+                card.appendChild(header);
+                // 🛑 SE ELIMINÓ card.appendChild(fecha);
+                card.appendChild(detalles);
+
+                if (contenedor) contenedor.appendChild(card);
+            });
+
+        } catch (error) {
+            if (spinner) spinner.style.display = 'none';
+            console.error(error);
+            if (sinDatos) {
+                sinDatos.style.display = 'block';
+                sinDatos.textContent = 'Error al cargar los pedidos.';
+            }
+        }
     }
-  });
 
-  // Eliminar pedido
-  contenedor.addEventListener("click", (e) => {
-    if (e.target.closest(".btn-eliminar")) {
-      const index = e.target.closest(".btn-eliminar").dataset.index;
-      historial.splice(historial.length - 1 - index, 1);
-      localStorage.setItem("historialPedidos", JSON.stringify(historial));
-      window.location.reload();
-    }
-  });
+    // ===============================
+    // EVENTOS DE FILTROS
+    // ===============================
+    if (filtroFecha) filtroFecha.addEventListener('change', cargarHistorial);
+    if (filtroPlato) filtroPlato.addEventListener('input', cargarHistorial);
+    if (btnLimpiar) btnLimpiar.addEventListener('click', () => {
+        if (filtroFecha) filtroFecha.value = '';
+        if (filtroPlato) filtroPlato.value = '';
+        cargarHistorial();
+    });
+
+    // ===============================
+    // Cargar historial automáticamente
+    // ===============================
+    cargarHistorial();
 });

@@ -1,240 +1,302 @@
-/* === RESET === */
+/* ============================================== */
+/* === ESTILO BASE Y UTILIDADES GENERALES === */
+/* ============================================== */
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(to bottom, #0a2e38, #138a94);
-  color: #fff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  animation: fadeIn 2s ease-in-out;
+    /* Fondo y fuente unificados */
+    font-family: 'Inter', sans-serif; 
+    background: linear-gradient(to bottom, #071f28, #0a3a47); 
+    color: #f0f8ff; 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Para empujar el footer hacia abajo */
 }
 
-/* === ANIMACIONES === */
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes logoBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
 
-/* === HEADER Y NAVEGACIÓN === */
+/* ============================================== */
+/* === HEADER Y NAVEGACIÓN (TOPBAR) === */
+/* ============================================== */
+
+/* --- Top Bar --- */
 .topbar {
-  background-color: #001c26;
-  padding: 15px 20px;
-  position: relative;
-  z-index: 10;
+    background-color: #00121a;
+    padding: 18px 30px; 
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .topbar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: auto;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1300px;
+    margin: auto;
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  font-size: 22px;
-  animation: logoBounce 2s infinite;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: #00ffe5; /* Color de acento */
 }
 
 .logo i {
-  font-size: 30px;
-  margin-right: 8px;
+    font-size: 32px;
+    margin-right: 10px;
 }
 
-/* Menú principal solo visible en escritorio */
+/* --- Menú Desktop --- */
 .menu {
-  display: flex;
-  gap: 20px;
+    display: flex;
+    gap: 25px;
 }
 
 .menu a {
-  color: #00ffe5;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
+    color: #b2ebf2; 
+    font-weight: 500;
+    padding: 5px 0;
+    position: relative;
+    white-space: nowrap; /* Evita que los ítems se rompan */
 }
 
 .menu a:hover {
-  color: #00d6cb;
+    color: #00ffe5;
 }
 
-/* Botón hamburguesa solo visible en móvil */
+/* Indicador de Hover/Active */
+.menu a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #00ffe5;
+    transition: width 0.3s ease;
+}
+
+.menu a:hover::after,
+.menu a.active::after {
+    width: 100%;
+}
+
+/* --- Botón Hamburger --- */
 .hamburger {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  color: #00ffe5;
-  cursor: pointer;
-  z-index: 11;
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #00ffe5;
+    cursor: pointer;
+    z-index: 101;
 }
 
-/* === NAV LATERAL PARA MÓVIL === */
+/* ============================================== */
+/* === NAV LATERAL (MÓVIL) === */
+/* ============================================== */
 .nav-lateral {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 260px;
-  height: 100vh;
-  background-color: #001e25;
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  transition: right 0.3s ease;
-  z-index: 100;
+    position: fixed;
+    top: 0;
+    right: -300px; /* Posición inicial fuera de pantalla */
+    width: 300px;
+    height: 100vh;
+    background-color: #001e25;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+    z-index: 100;
 }
 
 .nav-lateral.show {
-  right: 0;
+    right: 0; /* Muestra el menú */
 }
 
 .nav-lateral .close-btn {
-  background: none;
-  border: none;
-  color: #00ffe5;
-  font-size: 1.5rem;
-  align-self: flex-end;
-  cursor: pointer;
+    background: none;
+    border: none;
+    color: #00ffe5;
+    font-size: 2rem;
+    align-self: flex-end;
+    cursor: pointer;
+    margin-bottom: 20px;
 }
 
 .nav-lateral ul {
-  list-style: none;
-  padding: 0;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .nav-lateral a {
-  color: #fff;
-  font-size: 1.2rem;
-  text-decoration: none;
-  font-weight: 500;
+    color: #f0f8ff;
+    font-size: 1.1rem;
+    display: block;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 255, 229, 0.1);
+    transition: all 0.2s ease;
 }
 
 .nav-lateral a:hover {
-  color: #00ffe5;
+    color: #00ffe5;
+    padding-left: 10px;
 }
 
 .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(0,0,0,0.5);
-  width: 100%;
-  height: 100vh;
-  display: none;
-  z-index: 50;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.7);
+    width: 100%;
+    height: 100vh;
+    display: none;
+    z-index: 99;
 }
 
 .overlay.show {
-  display: block;
-}
-
-/* === RESPONSIVE === */
-@media (max-width: 768px) {
-  .menu {
-    display: none;
-  }
-
-  .hamburger {
     display: block;
-  }
 }
 
-@media (min-width: 769px) {
-  .nav-lateral,
-  .overlay {
-    display: none !important;
-  }
-}
-
-/* === DASHBOARD === */
+/* ============================================== */
+/* === DASHBOARD DE TARJETAS (MAIN) === */
+/* ============================================== */
 .dashboard {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
+    /* Usar main para darle más semántica */
+    display: grid;
+    /* Cuadrícula responsiva: 3 columnas en desktop, se ajusta */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 25px;
+    padding: 40px 20px;
+    max-width: 1300px;
+    margin: auto;
+    width: 100%;
+    flex-grow: 1; /* Permite que el dashboard ocupe el espacio */
 }
 
 .card {
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  padding: 20px;
-  text-align: center;
-  width: 260px;
-  transition: transform 0.3s;
-  cursor: pointer;
+    background: #0d262d;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Distribuye contenido */
+    min-height: 220px;
 }
 
 .card i {
-  font-size: 48px;
-  margin-bottom: 10px;
-  color: #00ffe5;
+    font-size: 56px;
+    margin-bottom: 15px;
+    color: #00ffe5;
+    text-shadow: 0 0 10px rgba(0, 255, 229, 0.5);
 }
 
 .card h3 {
-  font-size: 1.5rem;
-  color: #00ffe5;
-  margin-bottom: 10px;
+    font-size: 1.4rem;
+    color: #00ffe5;
+    margin-bottom: 8px;
+    font-weight: 600;
 }
 
 .card p {
-  font-size: 1rem;
-  color: #e0f7fa;
+    font-size: 0.95rem;
+    color: #b2ebf2;
 }
 
 .card:hover {
-  transform: scale(1.05);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 255, 229, 0.15);
+    border: 1px solid #00ffe5;
+    background: #11343f;
 }
 
+/* --- Tarjeta de Cerrar Sesión --- */
 .card.cerrar {
-  background: rgba(255, 0, 0, 0.2);
+    background: #440a12; /* Fondo de alerta */
+    border: 1px solid #ff4d4d;
 }
 
 .card.cerrar i,
-.card.cerrar h3,
-.card.cerrar p {
-  color: #ff4d4d;
+.card.cerrar h3 {
+    color: #ff4d4d;
+    text-shadow: 0 0 8px rgba(255, 77, 77, 0.5);
 }
 
+.card.cerrar:hover {
+    background: #5c0e18;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(255, 77, 77, 0.25);
+}
+
+/* ============================================== */
 /* === FOOTER === */
+/* ============================================== */
 .footer {
-  background: rgba(0, 0, 0, 0.25);
-  padding: 15px 0;
-  text-align: center;
-  font-size: 0.9rem;
-  color: #b2ebf2;
+    background: #00121a; 
+    padding: 20px 0;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #94d8e5;
+    margin-top: auto; /* Se asegura de que esté siempre al final */
+    border-top: 1px solid rgba(0, 255, 229, 0.1);
 }
 
-.alerta-retraso {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #ff4d4d;
-    color: white;
-    padding: 15px 20px;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
-    animation: fadeInOut 5s ease;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    z-index: 9999;
+/* ============================================== */
+/* === RESPONSIVE AJUSTES FINALES === */
+/* ============================================== */
+
+@media (max-width: 900px) {
+    .dashboard {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
 }
 
-@keyframes fadeInOut {
-    0% { opacity: 0; transform: translateY(-20px); }
-    10% { opacity: 1; transform: translateY(0); }
-    90% { opacity: 1; }
-    100% { opacity: 0; transform: translateY(-20px); }
+@media (max-width: 768px) {
+    /* Ocultar menú desktop y mostrar hamburguesa */
+    .menu {
+        display: none;
+    }
+    .hamburger {
+        display: block;
+    }
+    .topbar {
+        padding: 15px 20px;
+    }
+    /* Ajustes para el dashboard móvil */
+    .dashboard {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Más compacto */
+        gap: 15px;
+        padding: 20px 15px;
+    }
+    .card {
+        padding: 20px 15px;
+        min-height: 150px;
+    }
+    .card i {
+        font-size: 40px;
+    }
+    .card h3 {
+        font-size: 1.2rem;
+    }
 }

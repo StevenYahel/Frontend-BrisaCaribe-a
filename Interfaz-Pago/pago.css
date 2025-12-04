@@ -1,8 +1,9 @@
 /* --- Estilo general --- */
 body {
+  /* Fondo más sutil y profesional (de azul profundo a gris azulado) */
   font-family: "Poppins", sans-serif;
-  background: linear-gradient(135deg, #00b4db, #0083b0);
-  color: #fff;
+  background: linear-gradient(135deg, #f0f4f8, #c5d0e2); /* Fondo claro y suave */
+  color: #333; /* Color de texto principal oscuro para contraste */
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -12,89 +13,136 @@ body {
   justify-content: center;
 }
 
-/* --- Contenedor principal --- */
+/* --- Título principal --- */
 h1 {
-  font-size: 2.2rem;
+  /* Título con color corporativo, eliminando el exceso de sombra */
+  font-size: 2.5rem;
   text-align: center;
-  margin-bottom: 30px;
-  color: #fff;
-  letter-spacing: 1px;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  margin-bottom: 40px;
+  color: #007bff; /* Azul primario profesional */
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  text-shadow: none; /* Eliminar sombra fuerte */
 }
 
 /* --- Caja del formulario --- */
 .form-container {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
-  padding: 30px 40px;
+  /* Contenedor limpio, blanco, con bordes redondeados suaves */
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 35px 45px;
   width: 90%;
-  max-width: 400px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  max-width: 450px;
+  /* Sombra sutil y elegante */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px; /* Espaciado uniforme */
+  border: 1px solid #e0e6ec; /* Borde sutil */
 }
 
 /* --- Labels --- */
 label {
+  /* Labels claros y legibles */
   font-weight: 600;
   margin-bottom: 5px;
-  color: #e0f7fa;
+  color: #5a6a80; /* Gris oscuro para legibilidad */
+  display: block;
+  font-size: 0.95rem;
 }
 
-/* --- Inputs y selects --- */
+/* --- Inputs y selects (Controles de formulario) --- */
 input,
 select {
-  padding: 12px;
-  border: none;
+  padding: 14px;
+  border: 1px solid #dcdfe6; /* Borde suave */
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: #f7f9fc; /* Fondo ligeramente gris para inputs */
   font-size: 1rem;
   outline: none;
   color: #333;
-  transition: all 0.2s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%; /* Asegurar que ocupen todo el ancho */
+  box-sizing: border-box; /* Incluir padding y borde en el ancho */
 }
 
 input:focus,
 select:focus {
-  box-shadow: 0 0 0 2px #00bcd4;
+  border-color: #007bff; /* Borde azul al enfocar */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2); /* Sombra de enfoque sutil */
+  background-color: #ffffff; /* Blanco al enfocar */
 }
 
-/* --- Botón principal --- */
+/* --- Botones --- */
 button {
-  background-color: #00bcd4;
+  /* Botón primario con color corporativo */
+  background-color: #007bff; /* Azul profesional */
   color: white;
   border: none;
-  padding: 12px;
-  border-radius: 10px;
-  font-size: 1.1rem;
+  padding: 14px;
+  border-radius: 8px; /* Bordes menos agresivos */
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  letter-spacing: 0.5px;
+  /* Asegurar el mismo estilo para ambos botones si no se usa una clase diferente */
+  width: 100%;
 }
 
+/* Botón de Generar Recibo (Estilo Secundario - Outline) */
+#generar-recibo { /* Asumiendo que le das un ID o clase específica al botón de generar recibo */
+    background-color: #6c757d; /* Gris para acción secundaria */
+}
+#generar-recibo:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón principal (Registrar Pago) */
+#registrar-pago { /* Asumiendo que le das un ID o clase específica al botón de registrar */
+    background-color: #28a745; /* Verde para acción de registro/confirmación */
+}
+#registrar-pago:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* El estilo de los botones principales se aplica si no tienen ID */
 button:hover {
-  background-color: #0097a7;
-  transform: scale(1.05);
+  background-color: #0056b3; /* Azul más oscuro */
+  transform: translateY(-1px); /* Efecto de 'levantarse' sutil */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* --- Mensaje de respuesta --- */
+
+/* --- Mensaje de respuesta (Ajustes de visibilidad y fuente) --- */
 #mensaje {
   margin-top: 20px;
-  font-weight: bold;
+  font-weight: 600;
   text-align: center;
   font-size: 1rem;
+  color: #007bff; /* Color principal */
+  transition: all 0.5s ease;
+  opacity: 1;
+}
+
+#mensaje.fade {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 
 /* --- Adaptación móvil --- */
 @media (max-width: 500px) {
   .form-container {
     width: 95%;
-    padding: 25px;
+    padding: 25px 30px;
   }
 
   h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
+    margin-bottom: 30px;
   }
 }

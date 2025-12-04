@@ -2,14 +2,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const carritoContainer = document.querySelector(".carrito-container");
   const botonesAgregar = document.querySelectorAll(".agregar-carrito");
   const btnRealizar = document.getElementById("realizarPedido");
-  const selectMesa = document.getElementById("mesaSelect");
 
   const API_URL = "http://localhost:8000";
-  const API_PEDIDOS = `${API_URL}/api/pedidos/crear/`;
+  const API_PEDIDOS = `${API_URL}/api/pedidos/cliente/crear/`;
   const API_MESAS = `${API_URL}/api/mesas/disponibles/`;
 
   let enviandoPedido = false;
   let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+  let mesaId = null;
+
+  // -------------------------------
+  // Obtener primera mesa disponible automáticamente
+  // -------------------------------
+  async function obtenerMesaDisponible() {
+    try {
+      const res = await fetch(API_MESAS);
+      const data = await res.json();
+      if (data.length === 0) throw new Error("No hay mesas disponibles");
+      mesaId = data[0].id; // Tomamos la primera libre
+      console.log("Mesa asignada automáticamente:", mesaId);
+    } catch (err) {
+      mostrarEstado(`❌ Error al obtener mesa: ${err.message}`);
+      throw err;
+    }
+  }
+
+  obtenerMesaDisponible();
 
   // -------------------------------
   // Agregar productos al carrito
@@ -98,39 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
   btnRealizar?.addEventListener("click", async () => await enviarPedido());
 
   // -------------------------------
-  // Obtener mesa_id (select o automática)
-  // -------------------------------
-  async function obtenerMesaId() {
-    // Si existe un select de mesa y tiene valor, usarlo
-    if (selectMesa) {
-      const val = selectMesa.value;
-      if (val && val !== "0") return Number(val);
-      // si el select existe pero no tiene valor, solicitar al usuario
-      mostrarEstado("⚠️ Selecciona una mesa antes de confirmar el pedido.");
-      throw new Error("Mesa no seleccionada");
-    }
-
-    // Si no hay select, intentar obtener la primera mesa disponible desde el backend
-    try {
-      const resp = await fetch(API_MESAS);
-      if (!resp.ok) {
-        console.warn("No se pudo obtener mesas disponibles:", resp.status);
-        throw new Error("No hay mesas disponibles");
-      }
-      const mesas = await resp.json();
-      if (Array.isArray(mesas) && mesas.length > 0) {
-        return Number(mesas[0].id);
-      } else {
-        throw new Error("No hay mesas libres");
-      }
-    } catch (err) {
-      console.error("Error al obtener mesa:", err);
-      mostrarEstado("❌ No se pudo obtener una mesa. Intenta seleccionar una en la interfaz o revisa el servidor.");
-      throw err;
-    }
-  }
-
-  // -------------------------------
   // Enviar pedido al backend
   // -------------------------------
   async function enviarPedido() {
@@ -139,37 +124,29 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    if (!mesaId) {
+      mostrarEstado("⚠️ No se pudo asignar una mesa. Intenta recargando la página.");
+      return;
+    }
+
     if (carrito.length === 0) {
       mostrarEstado("⚠️ El carrito está vacío. Agrega productos antes de continuar.");
       return;
     }
 
-    let mesaId;
-    try {
-      mesaId = await obtenerMesaId();
-    } catch (err) {
-      // obtenerMesaId ya muestra el estado correspondiente
-      return;
-    }
-
-    // Formato que espera tu backend: "productos": [{producto_id, cantidad}, ...]
     const productos = carrito.map((item) => ({
       producto_id: Number(item.id),
       cantidad: Number(item.cantidad)
     }));
 
-    const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-
     const pedidoData = {
       mesa_id: mesaId,
       productos: productos
-      // tu endpoint calcula total desde los precios de productos en server,
-      // pero si quieres enviar total también, puedes añadir: total: total
     };
 
     enviandoPedido = true;
     mostrarEstado("📦 Enviando pedido...");
-    console.log("📤 Enviando pedido:", pedidoData);
+    console.log("📤 Pedido:", pedidoData);
 
     try {
       const response = await fetch(API_PEDIDOS, {
@@ -185,11 +162,10 @@ document.addEventListener("DOMContentLoaded", () => {
       let data;
       try { data = JSON.parse(text); } catch { data = { error: text }; }
 
-      console.log("📥 Respuesta del servidor:", data);
+      console.log("📥 Respuesta backend:", data);
 
-      if (response.ok || response.status === 201) {
+      if (response.ok) {
         mostrarEstado("✅ Pedido registrado exitosamente.");
-
         carrito = [];
         localStorage.removeItem("carrito");
         renderCarrito();
@@ -198,13 +174,12 @@ document.addEventListener("DOMContentLoaded", () => {
           window.location.href = "estado-pedido.html";
         }, 1500);
       } else {
-        console.error("❌ Error del servidor:", data);
-        mostrarEstado(`⚠️ Error: ${data.error || data.message || "Error desconocido al enviar el pedido"}`);
+        mostrarEstado(`⚠️ Error: ${data.error || data.message || "Error desconocido"}`);
       }
 
     } catch (err) {
       console.error("❌ Error en la conexión:", err);
-      mostrarEstado(`❌ Error de conexión: ${err.message}\nVerifica que el servidor esté corriendo en ${API_URL}`);
+      mostrarEstado(`❌ Error de conexión: ${err.message}`);
     } finally {
       enviandoPedido = false;
     }

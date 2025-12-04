@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     obtenerPedidos();
-    setInterval(obtenerPedidos, 5000); // Actualiza pedidos cada 5s
-    conectarWebSocket(); // Conexión WS para alertas
+    setInterval(obtenerPedidos, 5000); 
+    conectarWebSocket();
 });
 
 let pedidosPrevios = [];
@@ -18,7 +18,7 @@ async function obtenerPedidos() {
         const response = await fetch("http://localhost:8000/api/pedidos-cocina/");
         const pedidos = await response.json();
 
-        // Compara si hay nuevos pedidos para reproducir alerta
+        // Aviso si hay nuevos pedidos
         if (pedidos.length > pedidosPrevios.length) {
             reproducirAlerta();
             mostrarNotificacion("¡Nuevo pedido recibido!");
@@ -35,13 +35,15 @@ async function obtenerPedidos() {
         pedidos.forEach(pedido => {
             const div = document.createElement("div");
             div.className = "pedido-card";
+            div.id = `pedido-${pedido.id}`;
 
             const mesa = pedido.mesa ?? "N/A";
             const mesero = pedido.mesero ?? "Sin asignar";
 
             let detallesHTML = "<ul>";
             pedido.detalles.forEach(det => {
-                detallesHTML += `<li>${det.cantidad} × ${det.producto_nombre} <span style="font-size:12px; color:#555;">($${det.subtotal})</span></li>`;
+                detallesHTML += `<li>${det.cantidad} × ${det.producto_nombre} 
+                    <span style="font-size:12px; color:#555;">($${det.subtotal})</span></li>`;
             });
             detallesHTML += "</ul>";
 
@@ -49,10 +51,12 @@ async function obtenerPedidos() {
                 <h3>Pedido #${pedido.id}</h3>
                 <p><strong>Mesa:</strong> ${mesa}</p>
                 <p><strong>Mesero:</strong> ${mesero}</p>
-                <p><strong>Productos:</strong> ${detallesHTML}</p>
+
+                <p><strong>Productos:</strong></p>
+                <div class="detalle-productos">${detallesHTML}</div>
 
                 <div class="estado">
-                    <select onchange="cambiarEstado(${pedido.id}, this.value)">
+                    <select data-pedido="${pedido.id}" onchange="cambiarEstado(${pedido.id}, this.value)">
                         <option value="pendiente" ${pedido.estado === 'pendiente' ? 'selected' : ''}>Pendiente</option>
                         <option value="en_preparacion" ${pedido.estado === 'en_preparacion' ? 'selected' : ''}>Preparando</option>
                         <option value="listo" ${pedido.estado === 'listo' ? 'selected' : ''}>Listo</option>
@@ -78,24 +82,84 @@ async function obtenerPedidos() {
 // ===============================
 // Cambiar estado del pedido
 // ===============================
-async function cambiarEstado(id, estado) {
+async function cambiarEstado(id, estadoSeleccionado) {
+    const select = document.querySelector(`select[data-pedido="${id}"]`);
+    const estadoAnterior = select.value;
+
+    const estadoLimpio = String(estadoSeleccionado)
+        .trim()
+        .toLowerCase()
+        .replace(/[áàä]/g, "a")
+        .replace(/[éèë]/g, "e")
+        .replace(/[íìï]/g, "i")
+        .replace(/[óòö]/g, "o")
+        .replace(/[úùü]/g, "u")
+        .replace(/[\s-]+/g, "_");
+
     try {
-        await fetch(`http://localhost:8000/api/pedidos/${id}/estado/`, {
+        const response = await fetch(`http://localhost:8000/api/pedidos/${id}/estado/`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ estado })
+            body: JSON.stringify({ estado: estadoLimpio })
         });
 
-        mostrarNotificacion("Estado actualizado");
-        obtenerPedidos();
+        if (!response.ok) {
+            let mensajeError = "No se pudo actualizar el estado";
+            try {
+                const errorData = await response.json();
+                mensajeError = errorData.detail || mensajeError;
+            } catch (_) {}
+            console.error("Error backend:", mensajeError);
+            mostrarNotificacion("⚠ " + mensajeError);
+            select.value = estadoAnterior;
+            return;
+        }
+
+        const data = await response.json();
+        const estadoFinal = data.estado_normalizado || data.pedido?.estado || estadoLimpio;
+        select.value = estadoFinal;
+        mostrarNotificacion(`Estado actualizado a: ${estadoFinal.replace("_", " ")}`);
+
+        actualizarCardPedido(id);
 
     } catch (e) {
-        alert("Error al actualizar estado");
+        console.error("Error de conexión:", e);
+        mostrarNotificacion("⚠ Error de conexión con el servidor");
+        select.value = estadoAnterior;
     }
 }
 
 // ===============================
-// Marcar como RETRASADO
+// Refrescar card individual
+// ===============================
+async function actualizarCardPedido(id) {
+    try {
+        const response = await fetch("http://localhost:8000/api/pedidos-cocina/");
+        const pedidos = await response.json();
+        const pedido = pedidos.find(p => p.id === id);
+        if (!pedido) return;
+
+        const card = document.querySelector(`#pedido-${id}`);
+        if (!card) return;
+
+        const select = card.querySelector("select");
+        select.value = pedido.estado;
+
+        let detallesHTML = "<ul>";
+        pedido.detalles.forEach(det => {
+            detallesHTML += `<li>${det.cantidad} × ${det.producto_nombre} 
+                <span style="font-size:12px; color:#555;">($${det.subtotal})</span></li>`;
+        });
+        detallesHTML += "</ul>";
+        card.querySelector(".detalle-productos").innerHTML = detallesHTML;
+
+    } catch (e) {
+        console.error("Error refrescando card:", e);
+    }
+}
+
+// ===============================
+// Marcar como retrasado
 // ===============================
 async function marcarRetraso(id) {
     try {
@@ -107,7 +171,7 @@ async function marcarRetraso(id) {
 
         mostrarNotificacion("🚨 Pedido marcado como retrasado");
         reproducirAlerta();
-        obtenerPedidos();
+        actualizarCardPedido(id);
 
     } catch (error) {
         console.error("Error marcando retraso:", error);
@@ -137,22 +201,22 @@ function mostrarNotificacion(msg) {
 }
 
 // ===============================
-// WebSocket para tiempo real
+// WebSocket
 // ===============================
 function conectarWebSocket() {
     socket = new WebSocket("ws://localhost:8000/ws/pedidos/");
 
-    socket.onopen = () => console.log("WebSocket cocina conectado ✅");
+    socket.onopen = () => console.log("WebSocket cocina conectado ✓");
 
     socket.onmessage = (event) => {
         const data = JSON.parse(event.data);
         if (data.mensaje) {
             mostrarNotificacion(`⚠ ${data.mensaje.alerta} (Mesa ${data.mensaje.mesa})`);
             reproducirAlerta();
-            obtenerPedidos(); // Actualiza lista automáticamente
+            obtenerPedidos();
         }
     };
 
     socket.onclose = () => setTimeout(conectarWebSocket, 5000);
-    socket.onerror = (err) => socket.close();
+    socket.onerror = () => socket.close();
 }

@@ -1,56 +1,211 @@
+/*
+======================================================
+  ESTILO GLOBAL Y LAYOUT (body, historial-container)
+======================================================
+*/
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to bottom, #0a2e38, #138a94);
-  color: #fff;
-  margin: 0;
-  padding: 40px;
+    /* Fondo degradado oscuro con toque azul/cian */
+    font-family: 'Poppins', sans-serif; /* Fuente moderna */
+    background: linear-gradient(135deg, #0f1d2d 0%, #1c394d 100%);
+    color: #e0f7fa; /* Texto claro */
+    margin: 0;
+    padding: 30px 20px;
+    min-height: 100vh;
 }
 
 .historial-container {
-  max-width: 800px;
-  margin: auto;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 30px;
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
+    max-width: 1200px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.03); /* Fondo semitransparente sutil */
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Sombra profunda */
+    border: 1px solid rgba(0, 255, 255, 0.2); /* Borde cian sutil */
+}
+
+h2 {
+    color: #00ffe5; /* Color de acento cian */
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+/*
+======================================================
+  FILTROS
+======================================================
+*/
+.filtros {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filtros input,
+.filtros button {
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.filtros input {
+    background: #0f1d2d;
+    color: #e0f7fa;
+    border: 1px solid #00ffe555;
+}
+
+.filtros input:focus {
+    outline: none;
+    border-color: #00ffe5;
+    box-shadow: 0 0 8px #00ffe580;
+}
+
+.filtros button {
+    background: #00ffe5;
+    color: #0f1d2d;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.filtros button:hover {
+    background: #00d6cb;
+    transform: translateY(-2px);
+}
+
+/*
+======================================================
+  GRID DE PEDIDOS Y TARJETAS
+======================================================
+*/
+.grid-pedidos {
+    display: grid;
+    /* Ajusta el número de columnas automáticamente (3-4 tarjetas por fila) */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 25px;
 }
 
 .pedido-card {
-  border: 1px solid #00ffe5;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.08); /* Tarjeta con fondo semitransparente */
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid #00ffe533;
+    cursor: pointer; /* Indica que la tarjeta es interactiva */
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.info h3 {
-  margin-top: 0;
-  color: #00ffe5;
+.pedido-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 255, 255, 0.15);
 }
 
-.btn-repetir, .btn-volver, .btn-eliminar {
-  background: #00ffe5;
-  color: #012e40;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
+/* Encabezado (Información principal de la tarjeta) */
+.pedido-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00ffe51a;
 }
 
-.btn-repetir:hover, .btn-volver:hover, .btn-eliminar:hover {
-  background: #00d6cb;
+.pedido-header div:first-child {
+    font-size: 1.1rem;
+    color: #00ffe5;
 }
 
-.btn-volver {
-  display: block;
-  margin: 30px auto 0;
+/* Estilos para el estado del pedido */
+.estado {
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
+/* Adaptar colores de estado (debes definir las clases de estado en tu HTML/JS) */
+.estado.pagado {
+    background: #4caf50; /* Verde */
+    color: #fff;
+}
+.estado.pendiente {
+    background: #ff9800; /* Naranja */
+    color: #fff;
+}
+/* Agrega más estados si es necesario */
+
+/* Detalles del pedido (Lo que se expande) */
+.detalles {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #00ffe51a;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.detalles ul {
+    list-style: none;
+    padding: 0;
+}
+
+.detalles li {
+    margin-bottom: 5px;
+    padding-left: 10px;
+    border-left: 3px solid #00ffe5; /* Indicador visual de elemento */
+}
+
+/* Fecha (Si la dejas fuera del header) */
+.pedido-card > p {
+    color: #cccccc;
+    font-size: 0.9rem;
+}
+
+/* Mensaje de Sin Datos */
 .sin-pedidos {
-  text-align: center;
-  font-size: 1.2rem;
-  margin-top: 30px;
-  color: #e0f7fa;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 50px;
+    color: #00ffe5;
+    padding: 20px;
+    border: 1px dashed #00ffe555;
+    border-radius: 10px;
+}
+/*
+======================================================
+  ESTILO DEL BOTÓN DE VOLVER AL PANEL (.btn-volver)
+======================================================
+*/
+.btn-volver {
+    /* Alineación y Posición */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra el contenido (flecha y texto) */
+    width: fit-content; /* Ajusta el ancho al contenido */
+    margin: 30px auto 0; /* Centra el botón horizontalmente debajo del contenedor */
+    
+    /* Apariencia */
+    background: transparent; /* Fondo transparente */
+    color: #00ffe5; /* Texto color cian (color de acento) */
+    border: 2px solid #00ffe5; /* Borde cian */
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    gap: 8px; /* Espacio entre el icono de flecha y el texto */
+    text-decoration: none; /* Asegura que no haya subrayado si es un <a> */
+}
+
+.btn-volver:hover {
+    /* Efecto Hover: Invierte los colores y añade un sutil brillo */
+    background: #00ffe5; 
+    color: #0f1d2d; /* Color de fondo oscuro para el texto */
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); /* Efecto de brillo cian */
 }

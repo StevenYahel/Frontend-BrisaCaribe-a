@@ -5,6 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gestión de Pagos - Brisa Caribeña</title>
   <link rel="stylesheet" href="pago.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #1a73e8;
+    }
+    .form-container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    label {
+      font-weight: bold;
+    }
+    select, input, button {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      cursor: pointer;
+      background: #1a73e8;
+      color: white;
+      border: none;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #1665c1;
+    }
+    #mensaje {
+      max-width: 400px;
+      margin: 15px auto;
+      text-align: center;
+      font-weight: bold;
+      min-height: 20px;
+    }
+    .fade {
+      opacity: 0.8;
+      transition: opacity 0.5s ease-out;
+    }
+  </style>
 </head>
 <body>
   <h1>Registrar Pago</h1>
@@ -24,6 +76,7 @@
     <input type="number" id="monto" placeholder="Valor del pago" />
 
     <button id="registrar">Registrar Pago</button>
+    <button id="recibo">Generar Recibo</button>
   </div>
 
   <div id="mensaje"></div>

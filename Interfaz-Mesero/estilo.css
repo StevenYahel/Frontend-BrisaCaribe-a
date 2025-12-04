@@ -1,189 +1,161 @@
-/* ==== ESTILO GENERAL ==== */
+/* ==== ESTILO GENERAL - PROFESIONAL ==== */
 body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to bottom, #0a2e38, #138a94);
-  color: white;
+    margin: 0;
+    /* Fuente moderna y clara */
+    font-family: 'Poppins', sans-serif; 
+    /* Fondo oscuro sutil */
+    background: linear-gradient(to bottom, #0a2e38, #0f4f5a); 
+    color: #e0f7fa; /* Blanco azulado suave para legibilidad */
+    min-height: 100vh;
 }
 
-/* ==== HEADER ==== */
+/* ==== HEADER - PROFESIONAL ==== */
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  background-color: rgba(0, 255, 229, 0.1);
-  border-bottom: 1px solid #00ffe5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2rem;
+    /* Fondo con una opacidad menor y más oscura para contraste */
+    background-color: rgba(10, 46, 56, 0.8); 
+    border-bottom: 2px solid #00ffe5; /* Borde de acento más definido */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 header h1 {
-  margin: 0;
-  font-size: 1.8rem;
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700; /* Más peso para el título */
+    color: #00ffe5; /* Color de acento */
 }
 
-/* ==== BOTONES ==== */
+/* ==== CONTENEDORES (paneles) - PROFESIONAL ==== */
+.panel {
+    /* Fondo más sólido y menos transparente para un look más corporativo */
+    background-color: #133946; 
+    margin: 3rem auto; /* Centrar y más margen */
+    padding: 2.5rem;
+    border-radius: 12px; /* Bordes suaves */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Sombra más profunda */
+    max-width: 500px;
+    border: 1px solid rgba(0, 255, 229, 0.2); /* Borde sutil de acento */
+}
+
+/* Título de la sección dentro del panel */
+.panel h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #00ffe5;
+    border-bottom: 2px solid rgba(0, 255, 229, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+/* ==== LABELS - PROFESIONAL ==== */
+/* Las labels necesitan ser visibles y tener buen contraste */
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #94d8e5; /* Color más claro que el texto normal */
+    font-size: 0.95rem;
+}
+
+/* ==== SELECTS E INPUTS - PROFESIONAL ==== */
+select, input[type="number"] {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 8px; /* Bordes menos agresivos */
+    border: 1px solid rgba(0, 255, 229, 0.3); /* Borde sutil */
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    /* Fondo más oscuro y con menos opacidad */
+    background-color: #0a2e38; 
+    color: #e0f7fa;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    -webkit-appearance: none; /* Mejorar apariencia de select en algunos navegadores */
+    -moz-appearance: none;
+    appearance: none;
+}
+
+select:focus, input[type="number"]:focus {
+    border-color: #00ffe5; /* Borde de acento al enfocar */
+    box-shadow: 0 0 8px rgba(0, 255, 229, 0.6); /* Sombra de foco más intensa */
+    background-color: #0c3641; /* Fondo ligeramente diferente al enfocar */
+}
+
+select option {
+    background-color: #0a2e38; /* Asegurar fondo oscuro para las opciones */
+    color: white;
+    padding: 8px;
+}
+
+/* ==== BOTONES PRINCIPALES (Registrar Pedido) - PROFESIONAL ==== */
 .btn-principal,
 #btnRegistrarPedido {
-  background-color: #00ffe5;
-  color: #0a2e38;
-  padding: 0.8rem;
-  width: 100%;
-  border: none;
-  border-radius: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s;
-  margin-top: 1rem;
-  font-size: 1.1rem;
+    /* Color de acento sólido */
+    background-color: #00ffe5; 
+    color: #0a2e38; /* Contraste fuerte */
+    padding: 1.1rem;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    margin-top: 1.5rem;
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
 }
 
 .btn-principal:hover,
 #btnRegistrarPedido:hover {
-  background-color: #00d2bb;
+    background-color: #00d2bb;
+    transform: translateY(-2px); /* Efecto 3D sutil */
+    box-shadow: 0 6px 15px rgba(0, 255, 229, 0.3);
 }
 
+/* ==== BOTONES SECUNDARIOS (Agregar al carrito) - PROFESIONAL ==== */
 .btn-secundario,
 #btnAgregarProducto {
-  background-color: #00ffe5;
-  color: #0a2e38;
-  padding: 0.6rem 1rem;
-  border: none;
-  border-radius: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s;
-  text-decoration: none;
-  margin-top: 0.5rem;
+    /* Mantener el color de acento, pero con un estilo más compacto */
+    background-color: #00ffe5; 
+    color: #0a2e38; 
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    margin-top: 0.5rem;
+    display: inline-flex; /* Para centrar el ícono y texto */
+    align-items: center;
+    gap: 8px;
 }
 
 .btn-secundario:hover,
 #btnAgregarProducto:hover {
-  background-color: #00d2bb;
+    background-color: #00d2bb;
+    transform: scale(1.02);
 }
 
-/* ==== CONTENEDORES (paneles) ==== */
-.panel {
-  background-color: rgba(255, 255, 255, 0.08);
-  margin: 2rem;
-  padding: 1.5rem;
-  border-radius: 16px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.25);
+/* Estilo para "Productos agregados" */
+.productos-agregados-titulo {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #00ffe5;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
 }
 
-/* ==== SELECTS E INPUTS ==== */
-select, input[type="number"] {
-  width: 100%;
-  padding: 0.8rem;
-  border-radius: 10px;
-  border: none;
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  background-color: rgba(255,255,255,0.15);
-  color: white;
-  outline: none;
-}
 
-select option {
-  background-color: #0a2e38;
-}
-
-/* ==== LISTA DE PRODUCTOS AGREGADOS ==== */
-.lista-productos {
-  background-color: rgba(255,255,255,0.05);
-  padding: 1rem;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-  list-style: none;
-}
-
-.producto-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 7px 5px;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-}
-
-.producto-item span {
-  font-size: 1rem;
-}
-
-.producto-item .eliminar {
-  background: transparent;
-  border: none;
-  color: #ff4f4f;
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-
-/* ==== PEDIDOS PARA COCINA ==== */
-.pedidos-container {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  margin-top: 1.5rem;
-}
-
-.pedido-card {
-  background-color: rgba(255,255,255,0.1);
-  padding: 1rem;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  transition: transform 0.3s ease;
-}
-
-.pedido-card:hover {
-  transform: translateY(-5px);
-}
-
-.pedido-card h3 {
-  margin: 0 0 0.5rem;
-}
-
-.pedido-card p strong {
-  color: #00ffe5;
-}
-
-/* ==== SPINNER ==== */
-.spinner {
-  width: 18px;
-  height: 18px;
-  border: 3px solid white;
-  border-top: 3px solid #0a2e38;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  display: inline-block;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* ==== RESPONSIVE ==== */
+/* ==== RESPONSIVE - PROFESIONAL ==== */
 @media (max-width: 600px) {
-  .panel {
-    margin: 1rem;
-    padding: 1.2rem;
-  }
-}
-.alerta-retraso {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #ff4d4d;
-    color: white;
-    padding: 15px 20px;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
-    animation: fadeInOut 5s ease;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    z-index: 9999;
-}
-
-@keyframes fadeInOut {
-    0% { opacity: 0; transform: translateY(-20px); }
-    10% { opacity: 1; transform: translateY(0); }
-    90% { opacity: 1; }
-    100% { opacity: 0; transform: translateY(-20px); }
+    .panel {
+        margin: 1.5rem;
+        padding: 1.5rem;
+    }
+    header h1 {
+        font-size: 1.5rem;
+    }
 }

@@ -1,186 +1,225 @@
-/* === ADMIN HISTORIAL - RESPONSIVE PRO === */
-
+/* === ESTILO BASE Y VARIABLES (HISTORIAL DE PEDIDOS) === */
 body {
-  font-family: 'Segoe UI', Roboto, sans-serif;
-  background: #f0f2f5;
-  margin: 0;
-  padding: 0;
-  color: #333;
+    /* Fondo limpio y profesional (gris azulado suave) */
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f4f8; 
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
+/* --- Título y Botón Volver (Header) --- */
+.admin-header {
+    background-color: #34495e; /* Un gris oscuro sólido para contrastar */
+    color: white;
+    padding: 18px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-header h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+/* Botón Volver */
+.admin-header .btn-volver {
+    text-decoration: none;
+    color: white;
+    background-color: #007b8a; /* Teal corporativo */
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.admin-header .btn-volver:hover {
+    background-color: #005f6e;
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
 .contenedor-historial {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #ffffff;
-  border-radius: 18px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 20px;
 }
 
-/* === Filtros === */
+/* === FILTROS - MINIMALISTA Y ORGANIZADO === */
 .filtros {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: space-between;
-  margin-bottom: 2rem;
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); 
+    align-items: center;
 }
 
 .filtros input,
 .filtros button {
-  flex: 1 1 200px;
-  padding: 0.9rem 1.2rem;
-  border: 1px solid #dfe3e8;
-  border-radius: 14px;
-  font-size: 1rem;
-  background: #f9f9f9;
-  transition: border-color 0.3s, box-shadow 0.3s;
+    /* Distribución equitativa y padding generoso */
+    flex: 1 1 0; 
+    padding: 12px 15px;
+    border: 1px solid #dfe3e8;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f9f9f9;
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .filtros input:focus {
-  border-color: #4a90e2;
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    border-color: #007b8a; /* Borde de enfoque corporativo */
+    box-shadow: 0 0 0 3px rgba(0, 123, 138, 0.1);
+    background: white;
 }
 
-.filtros button {
-  background: #e74c3c;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
+/* --- Botón Limpiar (Rojo) --- */
+.filtros .btn-limpiar {
+    flex-grow: 0.5; /* Más pequeño que los inputs */
+    background: #e74c3c;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
 }
 
-.filtros button:hover {
-  background: #c0392b;
+.filtros .btn-limpiar:hover {
+    background: #c0392b;
 }
 
-/* === Tarjetas de pedido === */
-.lista-pedidos .pedido {
-  background: #fff;
-  border-left: 6px solid #4a90e2;
-  padding: 1.8rem 2rem;
-  margin-bottom: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s;
+
+/* === LISTA Y TARJETAS DE PEDIDO - DISEÑO POR JAVASCRIPT === */
+/* Esta sección define el estilo para los pedidos que serán generados por 'script-historial.js' */
+.lista-pedidos {
+    display: grid;
+    /* Grid flexible: 3 columnas en desktop, se ajusta */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    gap: 25px;
 }
 
-.lista-pedidos .pedido:hover {
-  transform: scale(1.01);
+/* .pedido es la tarjeta individual que se debe crear en JS */
+.pedido { 
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e6ec; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s, box-shadow 0.3s;
 }
 
-.pedido h3 {
-  margin-top: 0;
-  font-size: 1.3rem;
-  color: #2c3e50;
-  margin-bottom: 0.5rem;
+.pedido:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Título del Mesero (Distinción de color) --- */
+.pedido .mesero-info {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #e74c3c; /* Rojo/Naranja para identificar al mesero */
+    border-bottom: 3px solid #e74c3c;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 .pedido p {
-  margin: 0.3rem 0;
-  color: #555;
+    margin: 5px 0;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.4;
 }
 
-.pedido ul {
-  margin: 1rem 0 1.2rem;
-  padding-left: 1.5rem;
-  color: #444;
+.pedido strong {
+    color: #333;
+    font-weight: 600;
 }
 
-.pedido li {
-  margin-bottom: 0.4rem;
+/* --- Detalles de Platos --- */
+.pedido .detalles-platos {
+    margin: 15px 0;
+    padding-top: 15px;
+    border-top: 1px dashed #dfe3e8; 
+    list-style: none;
+    padding-left: 0;
 }
 
-/* Botón imprimir */
+.pedido .detalles-platos li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #444;
+    margin-bottom: 3px;
+}
+
+/* --- Total --- */
+.pedido .total {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #007b8a; /* Teal corporativo para el total */
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px solid #f0f2f5; 
+}
+
+/* --- Botón Imprimir --- */
 .pedido button {
-  background: #2ecc71;
-  color: white;
-  border: none;
-  padding: 0.6rem 1.1rem;
-  border-radius: 12px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background 0.3s;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+    background: #2ecc71; /* Verde estándar para acciones de Éxito/Imprimir */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(46, 204, 113, 0.4);
+    width: 100%; /* El botón ocupa todo el ancho de la tarjeta */
 }
 
 .pedido button:hover {
-  background: #27ae60;
+    background: #27ae60;
+    transform: translateY(-1px);
 }
 
-/* Botón volver */
-.btn-volver {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.8rem 1.5rem;
-  background-color: #555;
-  color: white;
-  border-radius: 12px;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: background 0.3s;
-}
-
-.btn-volver:hover {
-  background-color: #333;
-}
-
-/* === RESPONSIVE === */
+/* === RESPONSIVE AJUSTES === */
 @media (max-width: 768px) {
-  .contenedor-historial {
-    padding: 1.5rem 1rem;
-  }
-
-  .filtros {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .filtros input,
-  .filtros button {
-    flex: 1 1 100%;
-    font-size: 1rem;
-  }
-
-  .pedido {
-    padding: 1.3rem 1rem;
-  }
-
-  .pedido h3 {
-    font-size: 1.1rem;
-  }
-
-  .pedido ul {
-    padding-left: 1.2rem;
-  }
-
-  .btn-volver {
-    width: 100%;
-    text-align: center;
-  }
-}
-.acciones {
-  margin-top: 8px;
-  display: flex;
-  gap: 10px;
-}
-
-.acciones button {
-  border: none;
-  padding: 6px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.editar {
-  background-color: #2196F3;
-  color: white;
-}
-
-.eliminar {
-  background-color: #E53935;
-  color: white;
+    .admin-header {
+        padding: 15px 20px;
+    }
+    .contenedor-historial {
+        margin: 1rem auto;
+    }
+    .filtros {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+    .filtros input,
+    .filtros button {
+        width: 100%;
+    }
+    .lista-pedidos {
+        grid-template-columns: 1fr; /* Una sola columna en móvil */
+        gap: 15px;
+    }
+    .pedido {
+        padding: 20px;
+    }
 }
